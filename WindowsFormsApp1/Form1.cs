@@ -20,7 +20,12 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             //CopyFiles(@"C:\Users\b8067\Desktop\copy", @"\\172.24.44.123\C$\Users\stuadmin\Desktop");//@"\\172.24.44.124\C:\Users\b8067\Desktop\destination"
-            
+            //次画面を非表示
+            this.Visible = false;
+
+            //Form2を表示
+            Form2 f2 = new Form2();
+            f2.Show();
         }
 
         public void CopyFiles(string srcPath, string dstPath)
@@ -30,8 +35,15 @@ namespace WindowsFormsApp1
                 dir.GetFiles("*", System.IO.SearchOption.AllDirectories);
             try
             {
-                this.Close();
-                
+                //次画面を非表示
+                this.Visible = false;
+
+                //Form2を表示
+                Form2 f2 = new Form2();
+                f2.Show();
+
+                // pingを送り、返事があった端末のみに送信する処理をここに書く
+
             }
             catch(Exception e)
             {
