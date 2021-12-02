@@ -12,6 +12,8 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        public string classroomlabel;
+
         public Form1()
         {
             InitializeComponent();
@@ -20,10 +22,8 @@ namespace WindowsFormsApp1
         private void button1_Click(object sender, EventArgs e)
         {
             //CopyFiles(@"C:\Users\b8067\Desktop\copy", @"\\172.24.44.123\C$\Users\stuadmin\Desktop");//@"\\172.24.44.124\C:\Users\b8067\Desktop\destination"
-            //次画面を非表示
+            // 画面を非表示
             this.Visible = false;
-
-            //Form2を表示
             Form2 f2 = new Form2();
             f2.Show();
         }
@@ -35,10 +35,8 @@ namespace WindowsFormsApp1
                 dir.GetFiles("*", System.IO.SearchOption.AllDirectories);
             try
             {
-                //次画面を非表示
+                // 画面を非表示
                 this.Visible = false;
-
-                //Form2を表示
                 Form2 f2 = new Form2();
                 f2.Show();
 
@@ -68,14 +66,14 @@ namespace WindowsFormsApp1
         {
             titlepictureBox.Parent = barpictureBox;
             titlepictureBox.BackColor = Color.Transparent;
+            labelClassroom.Text = classroomlabel;
+            label5.Text = classroomlabel;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //次画面を非表示
+            // 画面を非表示
             this.Visible = false;
-
-            //Form2を表示
             Form5 f5 = new Form5();
             f5.Show();
         }
@@ -83,6 +81,11 @@ namespace WindowsFormsApp1
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
