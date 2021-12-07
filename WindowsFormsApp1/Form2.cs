@@ -21,6 +21,7 @@ namespace WindowsFormsApp1
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
             File.Delete("temp.txt");
+            File.Delete("temp2.txt");
             Application.Exit();
         }
 

@@ -38,7 +38,6 @@
             this.button7A = new System.Windows.Forms.Button();
             this.button7B = new System.Windows.Forms.Button();
             this.button7C = new System.Windows.Forms.Button();
-            this.button8A = new System.Windows.Forms.Button();
             this.button8B = new System.Windows.Forms.Button();
             this.button8C = new System.Windows.Forms.Button();
             this.button8D = new System.Windows.Forms.Button();
@@ -160,23 +159,11 @@
             this.button7C.UseVisualStyleBackColor = true;
             this.button7C.Click += new System.EventHandler(this.button7C_Click);
             // 
-            // button8A
-            // 
-            this.button8A.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button8A.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button8A.Location = new System.Drawing.Point(20, 213);
-            this.button8A.Name = "button8A";
-            this.button8A.Size = new System.Drawing.Size(67, 34);
-            this.button8A.TabIndex = 15;
-            this.button8A.Text = "8A";
-            this.button8A.UseVisualStyleBackColor = true;
-            this.button8A.Click += new System.EventHandler(this.button8A_Click);
-            // 
             // button8B
             // 
             this.button8B.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button8B.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button8B.Location = new System.Drawing.Point(100, 213);
+            this.button8B.Location = new System.Drawing.Point(48, 125);
             this.button8B.Name = "button8B";
             this.button8B.Size = new System.Drawing.Size(67, 34);
             this.button8B.TabIndex = 16;
@@ -188,7 +175,7 @@
             // 
             this.button8C.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button8C.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button8C.Location = new System.Drawing.Point(180, 213);
+            this.button8C.Location = new System.Drawing.Point(129, 125);
             this.button8C.Name = "button8C";
             this.button8C.Size = new System.Drawing.Size(67, 34);
             this.button8C.TabIndex = 17;
@@ -200,7 +187,7 @@
             // 
             this.button8D.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.button8D.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button8D.Location = new System.Drawing.Point(259, 213);
+            this.button8D.Location = new System.Drawing.Point(208, 125);
             this.button8D.Name = "button8D";
             this.button8D.Size = new System.Drawing.Size(67, 34);
             this.button8D.TabIndex = 18;
@@ -210,7 +197,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button8D);
             this.groupBox1.Controls.Add(this.labelClassroom);
+            this.groupBox1.Controls.Add(this.button8C);
+            this.groupBox1.Controls.Add(this.button8B);
             this.groupBox1.Font = new System.Drawing.Font("ＭＳ 明朝", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.groupBox1.Location = new System.Drawing.Point(12, 88);
             this.groupBox1.Name = "groupBox1";
@@ -257,10 +247,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(346, 362);
-            this.Controls.Add(this.button8D);
-            this.Controls.Add(this.button8C);
-            this.Controls.Add(this.button8B);
-            this.Controls.Add(this.button8A);
             this.Controls.Add(this.button7C);
             this.Controls.Add(this.button7B);
             this.Controls.Add(this.button7A);
@@ -302,7 +288,6 @@
         private System.Windows.Forms.Button button7A;
         private System.Windows.Forms.Button button7B;
         private System.Windows.Forms.Button button7C;
-        private System.Windows.Forms.Button button8A;
         private System.Windows.Forms.Button button8B;
         private System.Windows.Forms.Button button8C;
         private System.Windows.Forms.Button button8D;

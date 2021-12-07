@@ -13,6 +13,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form6 : Form
     {
+
         private string classroomlabel;
         public Form6()
         {
@@ -21,10 +22,16 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string dstpath = @"C:\" + textBox1.Text;
+            string dstpath;
+            string classroom_ip_min = File.ReadLines(@"temp2.txt").Skip(0).First();
+            string classroom_ip = File.ReadLines(@"temp2.txt").Skip(2).First();
+            if (int.Parse(classroom_ip_min) < 10)
+                dstpath = @"\\" + classroom_ip + "10" + classroom_ip_min + @"\C$\" + textBox1.Text;
+            else
+                dstpath = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
             if (!Directory.Exists(dstpath))
             {
-                MessageBox.Show("今確認してきましたがそのようなディレクトリは存在しませんでした。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("そのようなディレクトリは存在しませんでした。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -89,6 +96,7 @@ namespace WindowsFormsApp1
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             File.Delete("temp.txt");
+            File.Delete("temp2.txt");
             Application.Exit();
         }
 

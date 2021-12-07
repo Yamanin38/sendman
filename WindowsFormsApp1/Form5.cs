@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -11,8 +12,22 @@ using System.IO;
 
 namespace WindowsFormsApp1
 {
+
     public partial class Form5 : Form
     {
+        private Hashtable ip = new Hashtable
+        {
+            ["5A"] = 35,
+            ["5B"] = 36,
+            ["5C"] = 38,
+            ["5D"] = 46,
+            ["7A"] = 39,
+            ["7B"] = 40,
+            ["7C"] = 45,
+            ["8B"] = 42,
+            ["8C"] = 43,
+            ["8D"] = 44,
+        };
         private string classroomlabel;
         private Form1 f1 = new Form1();
         public Form5()
@@ -22,9 +37,10 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // テキストファイルを作成し、そこに教室名を記載する
+            // テキストファイルを作成し、1行目に教室名2行目にipアドレスを記載する
             StreamWriter sw = File.CreateText(@"temp.txt");
             sw.WriteLine(classroomlabel);
+            sw.WriteLine(ip[classroomlabel]);
             sw.Close();
             //次画面を非表示
             this.Visible = false;
@@ -75,6 +91,8 @@ namespace WindowsFormsApp1
 
         private void Form5_FormClosing(object sender, FormClosingEventArgs e)
         {
+            File.Delete("temp1.txt");
+            File.Delete("temp2.txt");
             Application.Exit();
         }
 

@@ -27,6 +27,12 @@ namespace WindowsFormsApp1
             }
             else
             {
+                // temp2の1行目と2行目にそれぞれ最小値と最大値を、3行目にIPアドレスの完成形を記載する
+                StreamWriter sw1 = File.CreateText(@"temp2.txt");
+                sw1.WriteLine(numericUpDown1.Value);
+                sw1.WriteLine(numericUpDown2.Value);
+                sw1.WriteLine(@"172.24." + File.ReadLines(@"temp.txt").Skip(1).First() + @".");
+                sw1.Close();
                 // 画面を非表示
                 this.Visible = false;
                 Form6 f6 = new Form6();
@@ -72,9 +78,7 @@ namespace WindowsFormsApp1
         {
             titlepictureBox.Parent = barpictureBox;
             titlepictureBox.BackColor = Color.Transparent;
-            StreamReader sr = new StreamReader("temp.txt", Encoding.GetEncoding("Shift_JIS"));
-            classroomlabel = sr.ReadToEnd();
-            sr.Close();
+            classroomlabel = File.ReadLines(@"temp.txt").Skip(0).First();
             labelClassroom.Text = classroomlabel;
             label5.Text = classroomlabel;
         }
@@ -90,6 +94,7 @@ namespace WindowsFormsApp1
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             File.Delete("temp.txt");
+            File.Delete("temp2.txt");
             Application.Exit();
         }
 

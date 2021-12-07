@@ -113,10 +113,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Symbol", 8.25F);
+            this.textBox1.Font = new System.Drawing.Font("ＭＳ 明朝", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.textBox1.Location = new System.Drawing.Point(36, 97);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(255, 21);
+            this.textBox1.Size = new System.Drawing.Size(255, 19);
             this.textBox1.TabIndex = 1;
             // 
             // Form6
