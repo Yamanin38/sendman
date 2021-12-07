@@ -8,17 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Net.NetworkInformation;
 
 namespace WindowsFormsApp1
 {
     public partial class Form6 : Form
     {
-
+        Ping sender = new Ping();
+        private StreamWriter sw;
         private string classroomlabel;
         private string dstpath_min;
         private string classroom_ip_min;
         private string classroom_ip_max;
         private string classroom_ip;
+        private string ipaddress;
         public Form6()
         {
             InitializeComponent();
@@ -28,19 +31,22 @@ namespace WindowsFormsApp1
         {
             if (!textBox1.Text.EndsWith(@"\"))
                 textBox1.Text = textBox1.Text + @"\";
-            classroom_ip_min = File.ReadLines(@"temp2.txt").Skip(0).First();
-            classroom_ip_max = File.ReadLines(@"temp2.txt").Skip(1).First();
-            classroom_ip = File.ReadLines(@"temp2.txt").Skip(2).First();
+                classroomlabel = File.ReadLines(@"temp.txt").Skip(0).First();
+                classroom_ip_min = File.ReadLines(@"temp2.txt").Skip(0).First();
+                classroom_ip_max = File.ReadLines(@"temp2.txt").Skip(1).First();
+                classroom_ip = File.ReadLines(@"temp2.txt").Skip(2).First();
             if (int.Parse(classroom_ip_min) < 10)
                 dstpath_min = @"\\" + classroom_ip + "10" + classroom_ip_min + @"\C$\" + textBox1.Text;
             else
                 dstpath_min = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
             if (!Directory.Exists(dstpath_min))
             {
-                MessageBox.Show("そのようなディレクトリは存在しないか、権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("そのようなディレクトリは存在しないか、アクセス権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
+                sw = File.CreateText(@"failedlog.txt");
+                sw.WriteLine("---コピーに失敗したPC---");
                 CopyFiles(@"SOURCE", dstpath_min);//@"\\172.24.44.124\C:\Users\b8067\Desktop\destination"
                 // File.Copy(@"C:\Users\b8067\Desktop\copy\test.txt", dstpath_min + "test.txt", true);
             }
@@ -48,25 +54,38 @@ namespace WindowsFormsApp1
 
         public void CopyFiles(string srcPath, string dstPath)
         {
-            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(srcPath);
-            System.IO.FileInfo[] files =
-                dir.GetFiles("*", System.IO.SearchOption.AllDirectories);
-
-
-            // 最小値から最大値までのPC番号にpingを送り、返事がなかった場合その端末のみループから除外する処理を書く
-
+            PingReply reply;
+            DirectoryInfo dir = new DirectoryInfo(srcPath);
+            FileInfo[] files = dir.GetFiles("*", SearchOption.AllDirectories);
 
             for (int i = int.Parse(classroom_ip_min); i <= int.Parse(classroom_ip_max); i++)
             {
                 if (i < 10)
-                    dstPath = @"\\" + classroom_ip + "10" + i + @"\C$\" + textBox1.Text;
-                else
-                    dstPath = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
-                foreach (var file in files)
                 {
-                    // ログファイルを作り、失敗したPCを記載する処理
+                    dstPath = @"\\" + classroom_ip + "10" + i + @"\C$\" + textBox1.Text;
+                    ipaddress = classroom_ip + "10" + i;
+                }
+                else
+                {
+                    dstPath = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
+                    ipaddress = classroom_ip + "1" + i;
+                }
+                    foreach (var file in files)
+                {
                     string dst = dstPath + file.Name;
-                    File.Copy(file.FullName, dst, true);
+                    try
+                    {
+                        reply = sender.Send(ipaddress);
+                        if (reply.Status != IPStatus.Success)
+                            throw new Exception();
+                        else
+                            File.Copy(file.FullName, dst, true);
+                    }
+                    catch
+                    {
+                       // ログファイルに失敗したPC名を記載する処理
+                        sw.WriteLine(classroomlabel + i);
+                    }
                 }
             }
 
@@ -74,7 +93,7 @@ namespace WindowsFormsApp1
             this.Visible = false;
             Form2 f2 = new Form2();
             f2.Show();
-
+            sw.Close();
 
         }
 
