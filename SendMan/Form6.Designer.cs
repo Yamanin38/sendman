@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace SendMan
 {
     partial class Form6
     {
@@ -73,7 +73,7 @@
             // 
             // titlepictureBox
             // 
-            this.titlepictureBox.Image = global::WindowsFormsApp1.Properties.Resources.cooltext399129577459830;
+            this.titlepictureBox.Image = global::SendMan.Properties.Resources.cooltext399129577459830;
             this.titlepictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("titlepictureBox.InitialImage")));
             this.titlepictureBox.Location = new System.Drawing.Point(21, 10);
             this.titlepictureBox.Name = "titlepictureBox";
@@ -84,7 +84,7 @@
             // 
             // barpictureBox
             // 
-            this.barpictureBox.Image = global::WindowsFormsApp1.Properties.Resources.header_back;
+            this.barpictureBox.Image = global::SendMan.Properties.Resources.header_back;
             this.barpictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("barpictureBox.InitialImage")));
             this.barpictureBox.Location = new System.Drawing.Point(-2, -3);
             this.barpictureBox.Name = "barpictureBox";

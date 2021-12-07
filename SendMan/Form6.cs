@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Net.NetworkInformation;
 
-namespace WindowsFormsApp1
+namespace SendMan
 {
     public partial class Form6 : Form
     {

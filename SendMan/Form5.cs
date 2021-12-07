@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace WindowsFormsApp1
+namespace SendMan
 {
 
     public partial class Form5 : Form

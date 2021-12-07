@@ -1,5 +1,5 @@
 ﻿
-namespace WindowsFormsApp1
+namespace SendMan
 {
     partial class Form4
     {

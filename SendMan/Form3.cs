@@ -9,20 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace WindowsFormsApp1
+namespace SendMan
 {
-    public partial class Form4 : Form
+    public partial class Form3 : Form
     {
-        public Form4()
+        public Form3()
         {
             InitializeComponent();
-        }
-
-        private void Form4_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            File.Delete("temp.txt");
-            File.Delete("temp2.txt");
-            Application.Exit();
         }
     }
 }
