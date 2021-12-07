@@ -47,9 +47,9 @@ namespace SendMan
                 dstpath_min = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
             if (!Directory.Exists(dstpath_min))
             {
-                MessageBox.Show("そのようなディレクトリは存在しないか、アクセス権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 label4.Visible = false;
                 label4.Update();
+                MessageBox.Show("そのようなディレクトリは存在しないか、アクセス権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 // 他のボタンを使えるようにする
                 button1.Enabled = true;
                 button2.Enabled = true;
