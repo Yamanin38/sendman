@@ -29,6 +29,7 @@ namespace SendMan
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // 確認中ラベルを表示
             label4.Visible = true;
             label4.Update();
             // 他のボタンを使えなくする
@@ -50,6 +51,9 @@ namespace SendMan
                 label4.Visible = false;
                 label4.Update();
                 MessageBox.Show("そのようなディレクトリは存在しないか、アクセス権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // 確認中ラベルを非表示
+                label4.Visible = false;
+                label4.Update();
                 // 他のボタンを使えるようにする
                 button1.Enabled = true;
                 button2.Enabled = true;
@@ -135,6 +139,12 @@ namespace SendMan
 
             // ダイアログ表示
             MessageBox.Show("コピーが完了しました、失敗したPCはfailedlog.txtへ出力されます。", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // 他のボタンを使えるようにする
+            button1.Enabled = true;
+            button2.Enabled = true;
+            textBox1.Enabled = true;
+
             // 画面を切り替え
             this.Visible = false;
             Form5 f5 = new Form5();

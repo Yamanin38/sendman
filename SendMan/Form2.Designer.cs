@@ -1,6 +1,6 @@
 ﻿namespace SendMan
 {
-    partial class Form6
+    partial class Form2
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -34,12 +34,12 @@
             this.titlepictureBox = new System.Windows.Forms.PictureBox();
             this.barpictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.titlepictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barpictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -109,36 +109,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Set destination folder";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(120, 135);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 16);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "確認中...";
-            this.label4.Visible = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("ＭＳ 明朝", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label3.Location = new System.Drawing.Point(33, 153);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Visible = false;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(35, 169);
-            this.progressBar1.MarqueeAnimationSpeed = 20;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(256, 23);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar1.TabIndex = 3;
-            this.progressBar1.Visible = false;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -167,6 +137,34 @@
             this.label1.Size = new System.Drawing.Size(71, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "送信先: C:/";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(35, 169);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(256, 23);
+            this.progressBar1.TabIndex = 3;
+            this.progressBar1.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("ＭＳ 明朝", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label3.Location = new System.Drawing.Point(33, 153);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(0, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(120, 135);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(80, 16);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "確認中...";
+            this.label4.Visible = false;
             // 
             // Form6
             // 
