@@ -27,6 +27,7 @@ namespace WindowsFormsApp1
             ["8B"] = 42,
             ["8C"] = 43,
             ["8D"] = 44,
+            ["IMCSTU2"] = 44,
         };
         private string classroomlabel;
         private Form1 f1 = new Form1();
@@ -195,6 +196,14 @@ namespace WindowsFormsApp1
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
             classroomlabel = "8D";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            labelClassroom.Text = "IMCSTU2";
+            button1.Enabled = true;
+            button1.BackColor = Color.MediumSeaGreen;
+            classroomlabel = "IMCSTU2";
         }
     }
 }

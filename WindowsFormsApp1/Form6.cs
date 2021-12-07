@@ -22,21 +22,23 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string dstpath;
+            if (!textBox1.Text.EndsWith(@"\"))
+                textBox1.Text = textBox1.Text + @"\";
+            string dstpath_min;
             string classroom_ip_min = File.ReadLines(@"temp2.txt").Skip(0).First();
             string classroom_ip = File.ReadLines(@"temp2.txt").Skip(2).First();
             if (int.Parse(classroom_ip_min) < 10)
-                dstpath = @"\\" + classroom_ip + "10" + classroom_ip_min + @"\C$\" + textBox1.Text;
+                dstpath_min = @"\\" + classroom_ip + "10" + classroom_ip_min + @"\C$\" + textBox1.Text;
             else
-                dstpath = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
-            if (!Directory.Exists(dstpath))
+                dstpath_min = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
+            if (!Directory.Exists(dstpath_min))
             {
-                MessageBox.Show("そのようなディレクトリは存在しませんでした。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("そのようなディレクトリは存在しません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 //CopyFiles(@"C:\Users\yamanin-Note\Desktop\ゼミナール教室URL.txt", @"\\172.24.44.123\C$\Users\b8067\Desktop");//@"\\172.24.44.124\C:\Users\b8067\Desktop\destination"
-                File.Copy(@"C:\Users\yamanin-Note\Desktop\ゼミナール教室URL.txt", @"\\172.24.44.123\C$\Users\b8067\Desktop\ゼミナール教室URL.txt", true);
+                File.Copy(@"C:\Users\b8067\Desktop\copy\test.txt", dstpath_min + "test.txt", true);
                 // 画面を非表示
                 this.Visible = false;
                 Form2 f2 = new Form2();
@@ -82,7 +84,7 @@ namespace WindowsFormsApp1
         {
             titlepictureBox.Parent = barpictureBox;
             titlepictureBox.BackColor = Color.Transparent;
-            textBox1.Text = "Users/stuadmin/Desktop/";
+            textBox1.Text = @"Users\b8067\Desktop\";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -101,6 +103,11 @@ namespace WindowsFormsApp1
         }
 
         private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -45,6 +45,7 @@
             this.labelClassroom = new System.Windows.Forms.Label();
             this.titlepictureBox = new System.Windows.Forms.PictureBox();
             this.barpictureBox = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titlepictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barpictureBox)).BeginInit();
@@ -197,6 +198,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button8D);
             this.groupBox1.Controls.Add(this.labelClassroom);
             this.groupBox1.Controls.Add(this.button8C);
@@ -241,6 +243,18 @@
             this.barpictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.barpictureBox.TabIndex = 6;
             this.barpictureBox.TabStop = false;
+            // 
+            // button2
+            // 
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.button2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button2.Location = new System.Drawing.Point(247, 174);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(67, 34);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "IMC";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form5
             // 
@@ -293,6 +307,7 @@
         private System.Windows.Forms.Button button8D;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelClassroom;
+        private System.Windows.Forms.Button button2;
     }
 }
 
