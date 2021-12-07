@@ -11,26 +11,29 @@ using System.IO;
 
 namespace WindowsFormsApp1
 {
-    public partial class Form1 : Form
+    public partial class Form6 : Form
     {
         private string classroomlabel;
-        public Form1()
+        public Form6()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (numericUpDown2.Value < numericUpDown1.Value)
+            string dstpath = @"C:\" + textBox1.Text;
+            if (!Directory.Exists(dstpath))
             {
-                MessageBox.Show("最大値が最小値を下回っています", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("今確認してきましたがそのようなディレクトリは存在しませんでした。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
+                //CopyFiles(@"C:\Users\yamanin-Note\Desktop\ゼミナール教室URL.txt", @"\\172.24.44.123\C$\Users\b8067\Desktop");//@"\\172.24.44.124\C:\Users\b8067\Desktop\destination"
+                File.Copy(@"C:\Users\yamanin-Note\Desktop\ゼミナール教室URL.txt", @"\\172.24.44.123\C$\Users\b8067\Desktop\ゼミナール教室URL.txt", true);
                 // 画面を非表示
                 this.Visible = false;
-                Form6 f6 = new Form6();
-                f6.Show();
+                Form2 f2 = new Form2();
+                f2.Show();
             }
         }
 
@@ -72,19 +75,15 @@ namespace WindowsFormsApp1
         {
             titlepictureBox.Parent = barpictureBox;
             titlepictureBox.BackColor = Color.Transparent;
-            StreamReader sr = new StreamReader("temp.txt", Encoding.GetEncoding("Shift_JIS"));
-            classroomlabel = sr.ReadToEnd();
-            sr.Close();
-            labelClassroom.Text = classroomlabel;
-            label5.Text = classroomlabel;
+            textBox1.Text = "Users/stuadmin/Desktop/";
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             // 画面を非表示
             this.Visible = false;
-            Form5 f5 = new Form5();
-            f5.Show();
+            Form1 f1 = new Form1();
+            f1.Show();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

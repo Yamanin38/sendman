@@ -37,16 +37,16 @@
             this.labelClassroom = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.titlepictureBox = new System.Windows.Forms.PictureBox();
-            this.barpictureBox = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.titlepictureBox = new System.Windows.Forms.PictureBox();
+            this.barpictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titlepictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barpictureBox)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -58,7 +58,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(119, 35);
             this.button1.TabIndex = 0;
-            this.button1.Text = "送信";
+            this.button1.Text = "次へ";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -139,28 +139,6 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "最大値";
             // 
-            // titlepictureBox
-            // 
-            this.titlepictureBox.Image = global::WindowsFormsApp1.Properties.Resources.cooltext399129577459830;
-            this.titlepictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("titlepictureBox.InitialImage")));
-            this.titlepictureBox.Location = new System.Drawing.Point(21, 10);
-            this.titlepictureBox.Name = "titlepictureBox";
-            this.titlepictureBox.Size = new System.Drawing.Size(306, 72);
-            this.titlepictureBox.TabIndex = 5;
-            this.titlepictureBox.TabStop = false;
-            this.titlepictureBox.Click += new System.EventHandler(this.titlepictureBox_Click);
-            // 
-            // barpictureBox
-            // 
-            this.barpictureBox.Image = global::WindowsFormsApp1.Properties.Resources.header_back;
-            this.barpictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("barpictureBox.InitialImage")));
-            this.barpictureBox.Location = new System.Drawing.Point(-2, -3);
-            this.barpictureBox.Name = "barpictureBox";
-            this.barpictureBox.Size = new System.Drawing.Size(356, 76);
-            this.barpictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.barpictureBox.TabIndex = 6;
-            this.barpictureBox.TabStop = false;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -192,6 +170,28 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Set range";
             // 
+            // titlepictureBox
+            // 
+            this.titlepictureBox.Image = global::WindowsFormsApp1.Properties.Resources.cooltext399129577459830;
+            this.titlepictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("titlepictureBox.InitialImage")));
+            this.titlepictureBox.Location = new System.Drawing.Point(21, 10);
+            this.titlepictureBox.Name = "titlepictureBox";
+            this.titlepictureBox.Size = new System.Drawing.Size(306, 72);
+            this.titlepictureBox.TabIndex = 5;
+            this.titlepictureBox.TabStop = false;
+            this.titlepictureBox.Click += new System.EventHandler(this.titlepictureBox_Click);
+            // 
+            // barpictureBox
+            // 
+            this.barpictureBox.Image = global::WindowsFormsApp1.Properties.Resources.header_back;
+            this.barpictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("barpictureBox.InitialImage")));
+            this.barpictureBox.Location = new System.Drawing.Point(-2, -3);
+            this.barpictureBox.Name = "barpictureBox";
+            this.barpictureBox.Size = new System.Drawing.Size(356, 76);
+            this.barpictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.barpictureBox.TabIndex = 6;
+            this.barpictureBox.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -219,10 +219,10 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.titlepictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.barpictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.titlepictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.barpictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

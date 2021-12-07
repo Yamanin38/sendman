@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace WindowsFormsApp1
 {
     public partial class Form5 : Form
     {
+        private string classroomlabel;
         private Form1 f1 = new Form1();
         public Form5()
         {
@@ -20,6 +22,10 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // テキストファイルを作成し、そこに教室名を記載する
+            StreamWriter sw = File.CreateText(@"temp.txt");
+            sw.WriteLine(classroomlabel);
+            sw.Close();
             //次画面を非表示
             this.Visible = false;
             Form1 f1 = new Form1();
@@ -58,6 +64,9 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string srcfolder = "SOURCE";
+            if (!Directory.Exists(srcfolder))
+                Directory.CreateDirectory(srcfolder);
             titlepictureBox.Parent = barpictureBox;
             titlepictureBox.BackColor = Color.Transparent;
             button1.Enabled = false;
@@ -79,7 +88,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "5A";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "5A";
+            classroomlabel = "5A";
         }
 
         private void button5B_Click(object sender, EventArgs e)
@@ -87,7 +96,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "5B";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "5B";
+            classroomlabel = "5B";
         }
 
         private void button5C_Click(object sender, EventArgs e)
@@ -95,7 +104,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "5C";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "5C";
+            classroomlabel = "5C";
         }
 
         private void button5D1_Click(object sender, EventArgs e)
@@ -103,7 +112,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "5D1";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "5D1";
+            classroomlabel = "5D1";
         }
 
         private void button5D2_Click(object sender, EventArgs e)
@@ -111,7 +120,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "5D2";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "5D2";
+            classroomlabel = "5D2";
         }
 
         private void button7A_Click(object sender, EventArgs e)
@@ -119,7 +128,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "7A";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "7A";
+            classroomlabel = "7A";
         }
 
         private void button7B_Click(object sender, EventArgs e)
@@ -127,7 +136,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "7B";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "7B";
+            classroomlabel = "7B";
         }
 
         private void button7C_Click(object sender, EventArgs e)
@@ -135,7 +144,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "7C";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "7C";
+            classroomlabel = "7C";
         }
 
         private void button8A_Click(object sender, EventArgs e)
@@ -143,7 +152,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "8A";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "8A";
+            classroomlabel = "8A";
         }
 
         private void button8B_Click(object sender, EventArgs e)
@@ -151,7 +160,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "8B";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "8B";
+            classroomlabel = "8B";
         }
 
         private void button8C_Click(object sender, EventArgs e)
@@ -159,7 +168,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "8C";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "8C";
+            classroomlabel = "8C";
         }
 
         private void button8D_Click(object sender, EventArgs e)
@@ -167,7 +176,7 @@ namespace WindowsFormsApp1
             labelClassroom.Text = "8D";
             button1.Enabled = true;
             button1.BackColor = Color.MediumSeaGreen;
-            f1.classroomlabel = "8D";
+            classroomlabel = "8D";
         }
     }
 }

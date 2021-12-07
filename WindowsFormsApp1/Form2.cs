@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace WindowsFormsApp1
 {
@@ -19,6 +20,7 @@ namespace WindowsFormsApp1
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
+            File.Delete("temp.txt");
             Application.Exit();
         }
 

@@ -43,9 +43,9 @@
             this.button8C = new System.Windows.Forms.Button();
             this.button8D = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelClassroom = new System.Windows.Forms.Label();
             this.titlepictureBox = new System.Windows.Forms.PictureBox();
             this.barpictureBox = new System.Windows.Forms.PictureBox();
-            this.labelClassroom = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titlepictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barpictureBox)).BeginInit();
@@ -219,6 +219,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select a classroom";
             // 
+            // labelClassroom
+            // 
+            this.labelClassroom.AutoSize = true;
+            this.labelClassroom.Font = new System.Drawing.Font("Bauhaus 93", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelClassroom.Location = new System.Drawing.Point(136, 167);
+            this.labelClassroom.Name = "labelClassroom";
+            this.labelClassroom.Size = new System.Drawing.Size(52, 36);
+            this.labelClassroom.TabIndex = 20;
+            this.labelClassroom.Text = "- - -";
+            this.labelClassroom.Click += new System.EventHandler(this.labelClassroom_Click);
+            // 
             // titlepictureBox
             // 
             this.titlepictureBox.Image = global::WindowsFormsApp1.Properties.Resources.cooltext399129577459830;
@@ -240,17 +251,6 @@
             this.barpictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.barpictureBox.TabIndex = 6;
             this.barpictureBox.TabStop = false;
-            // 
-            // labelClassroom
-            // 
-            this.labelClassroom.AutoSize = true;
-            this.labelClassroom.Font = new System.Drawing.Font("Bauhaus 93", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelClassroom.Location = new System.Drawing.Point(136, 167);
-            this.labelClassroom.Name = "labelClassroom";
-            this.labelClassroom.Size = new System.Drawing.Size(52, 36);
-            this.labelClassroom.TabIndex = 20;
-            this.labelClassroom.Text = "5A";
-            this.labelClassroom.Click += new System.EventHandler(this.labelClassroom_Click);
             // 
             // Form5
             // 
