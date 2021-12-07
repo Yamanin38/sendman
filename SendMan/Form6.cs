@@ -67,6 +67,8 @@ namespace SendMan
 
         public void CopyFiles(string srcPath, string dstPath)
         {
+            label4.Visible = false;
+            label4.Update();
             PingReply reply;
             DirectoryInfo dir = new DirectoryInfo(srcPath);
             FileInfo[] files = dir.GetFiles("*", SearchOption.AllDirectories);
@@ -82,7 +84,7 @@ namespace SendMan
             progressBar1.Maximum = int.Parse(classroom_ip_max);
             progressBar1.Value = 0;
             label3.Text = "コピー開始";
-            //Label1を再描画する
+            //label3を再描画する
             label3.Update();
 
             for (int i = int.Parse(classroom_ip_min); i <= int.Parse(classroom_ip_max); i++)
