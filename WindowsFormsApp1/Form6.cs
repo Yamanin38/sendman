@@ -29,6 +29,12 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            label4.Visible = true;
+            label4.Update();
+            // 他のボタンを使えなくする
+            button1.Enabled = false;
+            button2.Enabled = false;
+            textBox1.Enabled = false;
             if (!textBox1.Text.EndsWith(@"\"))
                 textBox1.Text = textBox1.Text + @"\";
                 classroomlabel = File.ReadLines(@"temp.txt").Skip(0).First();
@@ -42,13 +48,20 @@ namespace WindowsFormsApp1
             if (!Directory.Exists(dstpath_min))
             {
                 MessageBox.Show("そのようなディレクトリは存在しないか、アクセス権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                label4.Visible = false;
+                label4.Update();
+                // 他のボタンを使えるようにする
+                button1.Enabled = true;
+                button2.Enabled = true;
+                textBox1.Enabled = true;
             }
             else
             {
+                // 失敗ログを作成
                 sw = File.CreateText(@"failedlog.txt");
                 sw.WriteLine("---コピーに失敗したPC---");
-                CopyFiles(@"SOURCE", dstpath_min);//@"\\172.24.44.124\C:\Users\b8067\Desktop\destination"
-                // File.Copy(@"C:\Users\b8067\Desktop\copy\test.txt", dstpath_min + "test.txt", true);
+                // ファイルコピーメソッド実行
+                CopyFiles("SOURCE", dstpath_min);
             }
         }
 
@@ -57,6 +70,20 @@ namespace WindowsFormsApp1
             PingReply reply;
             DirectoryInfo dir = new DirectoryInfo(srcPath);
             FileInfo[] files = dir.GetFiles("*", SearchOption.AllDirectories);
+            // 他のボタンを使えなくする
+            label3.Visible = true;
+            progressBar1.Visible = true;
+            button1.Enabled = false;
+            button2.Enabled = false;
+            textBox1.Enabled = false;
+
+            //コントロールを初期化する
+            progressBar1.Minimum = int.Parse(classroom_ip_min);
+            progressBar1.Maximum = int.Parse(classroom_ip_max);
+            progressBar1.Value = 0;
+            label3.Text = "コピー開始";
+            //Label1を再描画する
+            label3.Update();
 
             for (int i = int.Parse(classroom_ip_min); i <= int.Parse(classroom_ip_max); i++)
             {
@@ -70,30 +97,46 @@ namespace WindowsFormsApp1
                     dstPath = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
                     ipaddress = classroom_ip + "1" + i;
                 }
-                    foreach (var file in files)
-                {
-                    string dst = dstPath + file.Name;
-                    try
-                    {
-                        reply = sender.Send(ipaddress);
-                        if (reply.Status != IPStatus.Success)
-                            throw new Exception();
-                        else
-                            File.Copy(file.FullName, dst, true);
-                    }
-                    catch
-                    {
-                       // ログファイルに失敗したPC名を記載する処理
-                        sw.WriteLine(classroomlabel + i);
-                    }
-                }
-            }
 
-            // 画面を非表示
-            this.Visible = false;
-            Form2 f2 = new Form2();
-            f2.Show();
+                //ProgressBar1の値を変更する
+                progressBar1.Value = i;
+                //Label1のテキストを変更する
+                label3.Text = classroomlabel + i + "にコピー中...";
+
+                //Label1を再描画する
+                label3.Update();
+
+                foreach (var file in files)
+                    {
+                        string dst = dstPath + file.Name;
+                        try
+                        {
+                            reply = sender.Send(ipaddress);
+                            if (reply.Status != IPStatus.Success)
+                                throw new Exception();
+                            else
+                                File.Copy(file.FullName, dst, true);
+                        }
+                        catch
+                        {
+                           // ログファイルに失敗したPC名を記載する処理
+                            sw.WriteLine(classroomlabel + i);
+                            break;
+                        }
+                    }
+            }
+            // ファイルを閉じる
             sw.Close();
+
+            // 結果を報告する
+            label3.Text = "完了しました。";
+
+            // ダイアログ表示
+            MessageBox.Show("コピーが完了しました、失敗したPCはfailedlog.txtへ出力されます。", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // 画面を切り替え
+            this.Visible = false;
+            Form5 f5 = new Form5();
+            f5.Show();
 
         }
 

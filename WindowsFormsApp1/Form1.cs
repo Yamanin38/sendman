@@ -40,30 +40,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        public void CopyFiles(string srcPath, string dstPath)
-        {
-            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(srcPath);
-            System.IO.FileInfo[] files =
-                dir.GetFiles("*", System.IO.SearchOption.AllDirectories);
-            try
-            {
-                // 画面を非表示
-                this.Visible = false;
-                Form2 f2 = new Form2();
-                f2.Show();
-
-                // pingを送り、返事があった端末のみに送信する処理をここに書く
-
-            }
-            catch(Exception e)
-            {
-                if (e.Message.Contains("アクセスが拒否"))
-                    MessageBox.Show("ITINSで実行してください(;´･ω･)", "アクセス拒否", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else
-                    MessageBox.Show(e.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void label2_Click(object sender, EventArgs e)
         {
 
