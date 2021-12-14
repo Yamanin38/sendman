@@ -79,5 +79,10 @@ namespace SendMan
         {
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("EXPLORER.EXE", "SOURCE");
+        }
     }
 }
