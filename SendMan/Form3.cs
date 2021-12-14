@@ -59,5 +59,23 @@ namespace SendMan
         {
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Class.modeFlag = "folder";
+            // 画面を非表示
+            this.Visible = false;
+            Form1 f1 = new Form1();
+            f1.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Class.modeFlag = "file";
+            // 画面を非表示
+            this.Visible = false;
+            Form1 f1 = new Form1();
+            f1.Show();
+        }
     }
 }

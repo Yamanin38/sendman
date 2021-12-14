@@ -8,5 +8,6 @@ namespace SendMan
 {
     class Class
     {
+        public static string modeFlag;
     }
 }

@@ -35,10 +35,10 @@ namespace SendMan
             textBox1.Enabled = false;
             if (!textBox1.Text.EndsWith(@"\"))
                 textBox1.Text = textBox1.Text + @"\";
-                classroomlabel = File.ReadLines(@"temp.txt").Skip(0).First();
-                classroom_ip_min = File.ReadLines(@"temp2.txt").Skip(0).First();
-                classroom_ip_max = File.ReadLines(@"temp2.txt").Skip(1).First();
-                classroom_ip = File.ReadLines(@"temp2.txt").Skip(2).First();
+            classroomlabel = File.ReadLines(@"temp.txt").Skip(0).First();
+            classroom_ip_min = File.ReadLines(@"temp2.txt").Skip(0).First();
+            classroom_ip_max = File.ReadLines(@"temp2.txt").Skip(1).First();
+            classroom_ip = File.ReadLines(@"temp2.txt").Skip(2).First();
             if (int.Parse(classroom_ip_min) < 10)
                 dstpath_min = @"\\" + classroom_ip + "10" + classroom_ip_min + @"\C$\" + textBox1.Text;
             else
@@ -56,8 +56,12 @@ namespace SendMan
                 // 失敗ログを作成
                 sw = File.CreateText(@"failedlog.txt");
                 sw.WriteLine("---コピーに失敗したPC---");
+
                 // ファイルコピーメソッド実行
-                CopyFiles("SOURCE", dstpath_min);
+                if (Class.modeFlag == "file")
+                    CopyFiles("SOURCE", dstpath_min);
+                else if (Class.modeFlag == "folder")
+                    CopyDirectory("SOURCE", dstpath_min);
             }
         }
 
@@ -103,23 +107,23 @@ namespace SendMan
                 label3.Update();
 
                 foreach (var file in files)
+                {
+                    string dst = dstPath + file.Name;
+                    try
                     {
-                        string dst = dstPath + file.Name;
-                        try
-                        {
-                            reply = sender.Send(ipaddress);
-                            if (reply.Status != IPStatus.Success)
-                                throw new Exception();
-                            else
-                                File.Copy(file.FullName, dst, true);
-                        }
-                        catch
-                        {
-                           // ログファイルに失敗したPC名を記載する処理
-                            sw.WriteLine(classroomlabel + i);
-                            break;
-                        }
+                        reply = sender.Send(ipaddress);
+                        if (reply.Status != IPStatus.Success)
+                            throw new Exception();
+                        else
+                            File.Copy(file.FullName, dst, true);
                     }
+                    catch
+                    {
+                        // ログファイルに失敗したPC名を記載する処理
+                        sw.WriteLine(classroomlabel + i);
+                        break;
+                    }
+                }
             }
             // ファイルを閉じる
             sw.Close();
@@ -140,6 +144,86 @@ namespace SendMan
             Form5 f5 = new Form5();
             f5.Show();
 
+        }
+
+        public void CopyDirectory(string srcPath, string dstPath)
+        {
+            PingReply reply;
+            DirectoryInfo dir = new DirectoryInfo(srcPath);
+            DirectoryInfo[] folders = dir.GetDirectories("*", SearchOption.AllDirectories);
+            // 他のボタンを使えなくする
+            label3.Visible = true;
+            progressBar1.Visible = true;
+            button1.Enabled = false;
+            button2.Enabled = false;
+            textBox1.Enabled = false;
+
+            //コントロールを初期化する
+            progressBar1.Minimum = int.Parse(classroom_ip_min);
+            progressBar1.Maximum = int.Parse(classroom_ip_max) + 1;
+            progressBar1.Value = int.Parse(classroom_ip_min);
+            label3.Text = "コピー開始";
+            //label3を再描画する
+            label3.Update();
+
+            for (int i = int.Parse(classroom_ip_min); i <= int.Parse(classroom_ip_max); i++)
+            {
+                if (i < 10)
+                {
+                    dstPath = @"\\" + classroom_ip + "10" + i + @"\C$\" + textBox1.Text;
+                    ipaddress = classroom_ip + "10" + i;
+                }
+                else
+                {
+                    dstPath = @"\\" + classroom_ip + "1" + i + @"\C$\" + textBox1.Text;
+                    ipaddress = classroom_ip + "1" + i;
+                }
+
+                //ProgressBar1の値を変更する
+                progressBar1.Value = i + 1;
+                //Label1のテキストを変更する
+                label3.Text = classroomlabel + i + "にコピー中...";
+
+                //Label1を再描画する
+                label3.Update();
+
+                foreach (var folder in folders)
+                {
+                    string dst = dstPath + folder.Name;
+                    try
+                    {
+                        reply = sender.Send(ipaddress);
+                        if (reply.Status != IPStatus.Success)
+                            throw new Exception();
+                        else
+                            File.Copy(folder.FullName, dst, true);
+                    }
+                    catch
+                    {
+                        // ログファイルに失敗したPC名を記載する処理
+                        sw.WriteLine(classroomlabel + i);
+                        break;
+                    }
+                }
+            }
+            // ファイルを閉じる
+            sw.Close();
+
+            // 結果を報告する
+            label3.Text = "完了しました。";
+
+            // ダイアログ表示
+            MessageBox.Show("コピーが完了しました、失敗したPCはfailedlog.txtへ出力されます。", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // 他のボタンを使えるようにする
+            button1.Enabled = true;
+            button2.Enabled = true;
+            textBox1.Enabled = true;
+
+            // 画面を切り替え
+            this.Visible = false;
+            Form5 f5 = new Form5();
+            f5.Show();
         }
 
         private void label2_Click(object sender, EventArgs e)
