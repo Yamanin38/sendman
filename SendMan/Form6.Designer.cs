@@ -34,7 +34,6 @@
             this.titlepictureBox = new System.Windows.Forms.PictureBox();
             this.barpictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
@@ -95,7 +94,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.progressBar1);
             this.groupBox1.Controls.Add(this.label2);
@@ -108,16 +106,6 @@
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Set destination folder";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(120, 135);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(80, 16);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "確認中...";
-            this.label4.Visible = false;
             // 
             // label3
             // 
@@ -166,7 +154,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "送信先: C:/";
+            this.label1.Text = "送信先: C:\\";
             // 
             // Form6
             // 
@@ -206,7 +194,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label label4;
     }
 }
 

@@ -27,6 +27,7 @@ namespace SendMan
             }
             else
             {
+                MessageBox.Show("ディレクトリ確認のため、必ずコピー開始PCの電源は点けてください。", "確認", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 // temp2の1行目と2行目にそれぞれ最小値と最大値を、3行目にIPアドレスの完成形を記載する
                 StreamWriter sw1 = File.CreateText(@"temp2.txt");
                 sw1.WriteLine(numericUpDown1.Value);

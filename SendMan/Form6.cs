@@ -29,9 +29,6 @@ namespace SendMan
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // 確認中ラベルを表示
-            label4.Visible = true;
-            label4.Update();
             // 他のボタンを使えなくする
             button1.Enabled = false;
             button2.Enabled = false;
@@ -48,12 +45,7 @@ namespace SendMan
                 dstpath_min = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
             if (!Directory.Exists(dstpath_min))
             {
-                label4.Visible = false;
-                label4.Update();
                 MessageBox.Show("そのようなディレクトリは存在しないか、アクセス権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // 確認中ラベルを非表示
-                label4.Visible = false;
-                label4.Update();
                 // 他のボタンを使えるようにする
                 button1.Enabled = true;
                 button2.Enabled = true;
@@ -71,8 +63,6 @@ namespace SendMan
 
         public void CopyFiles(string srcPath, string dstPath)
         {
-            label4.Visible = false;
-            label4.Update();
             PingReply reply;
             DirectoryInfo dir = new DirectoryInfo(srcPath);
             FileInfo[] files = dir.GetFiles("*", SearchOption.AllDirectories);
@@ -85,8 +75,8 @@ namespace SendMan
 
             //コントロールを初期化する
             progressBar1.Minimum = int.Parse(classroom_ip_min);
-            progressBar1.Maximum = int.Parse(classroom_ip_max);
-            progressBar1.Value = 0;
+            progressBar1.Maximum = int.Parse(classroom_ip_max) + 1;
+            progressBar1.Value = int.Parse(classroom_ip_min);
             label3.Text = "コピー開始";
             //label3を再描画する
             label3.Update();
@@ -100,12 +90,12 @@ namespace SendMan
                 }
                 else
                 {
-                    dstPath = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
+                    dstPath = @"\\" + classroom_ip + "1" + i + @"\C$\" + textBox1.Text;
                     ipaddress = classroom_ip + "1" + i;
                 }
 
                 //ProgressBar1の値を変更する
-                progressBar1.Value = i;
+                progressBar1.Value = i + 1;
                 //Label1のテキストを変更する
                 label3.Text = classroomlabel + i + "にコピー中...";
 
@@ -166,7 +156,6 @@ namespace SendMan
         {
             titlepictureBox.Parent = barpictureBox;
             titlepictureBox.BackColor = Color.Transparent;
-            textBox1.Text = @"Users\b8067\Desktop\";
         }
 
         private void button2_Click(object sender, EventArgs e)

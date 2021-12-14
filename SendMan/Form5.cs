@@ -28,7 +28,6 @@ namespace SendMan
             ["8B"] = 42,
             ["8C"] = 43,
             ["8D"] = 44,
-            ["IMCSTU2"] = 44,
         };
         private string classroomlabel;
         private Form1 f1 = new Form1();
