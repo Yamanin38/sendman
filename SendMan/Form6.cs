@@ -46,9 +46,9 @@ namespace SendMan
                 classroom_ip = File.ReadLines(@"temp2.txt").Skip(2).First();
                 dstDrive = comboBox1.Text;
                 if (int.Parse(classroom_ip_min) < 10)
-                    dstpath_min = @"\\" + classroom_ip + "10" + classroom_ip_min + @"\C$\" + textBox1.Text;
+                    dstpath_min = @"\\" + classroom_ip + "10" + classroom_ip_min + @"\" + dstDrive + @"$\" + textBox1.Text;
                 else
-                    dstpath_min = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
+                    dstpath_min = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\" + dstDrive + @"$\" + textBox1.Text;
                 if (!Directory.Exists(dstpath_min))
                 {
                     MessageBox.Show("そのようなディレクトリは存在しないか、アクセス権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
