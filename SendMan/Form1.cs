@@ -84,5 +84,10 @@ namespace SendMan
         {
             System.Diagnostics.Process.Start("EXPLORER.EXE", "SOURCE");
         }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

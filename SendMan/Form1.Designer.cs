@@ -40,9 +40,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.titlepictureBox = new System.Windows.Forms.PictureBox();
             this.barpictureBox = new System.Windows.Forms.PictureBox();
-            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -67,7 +67,7 @@
             // 
             this.numericUpDown1.Location = new System.Drawing.Point(206, 138);
             this.numericUpDown1.Maximum = new decimal(new int[] {
-            50,
+            99,
             0,
             0,
             0});
@@ -75,12 +75,13 @@
             this.numericUpDown1.Size = new System.Drawing.Size(50, 19);
             this.numericUpDown1.TabIndex = 2;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // numericUpDown2
             // 
             this.numericUpDown2.Location = new System.Drawing.Point(206, 225);
             this.numericUpDown2.Maximum = new decimal(new int[] {
-            50,
+            99,
             0,
             0,
             0});
@@ -172,6 +173,19 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Set range";
             // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button3.Font = new System.Drawing.Font("ＭＳ 明朝", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button3.Location = new System.Drawing.Point(92, 178);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(143, 22);
+            this.button3.TabIndex = 21;
+            this.button3.Text = "SOURCEフォルダを開く";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // titlepictureBox
             // 
             this.titlepictureBox.Image = global::SendMan.Properties.Resources.cooltext399129577459830;
@@ -193,19 +207,6 @@
             this.barpictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.barpictureBox.TabIndex = 6;
             this.barpictureBox.TabStop = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Font = new System.Drawing.Font("ＭＳ 明朝", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button3.Location = new System.Drawing.Point(92, 178);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(143, 22);
-            this.button3.TabIndex = 21;
-            this.button3.Text = "SOURCEフォルダを開く";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
