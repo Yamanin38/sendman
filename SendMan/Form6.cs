@@ -22,6 +22,7 @@ namespace SendMan
         private string classroom_ip_max;
         private string classroom_ip;
         private string ipaddress;
+        private string dstDrive;
         public Form6()
         {
             InitializeComponent();
@@ -29,39 +30,45 @@ namespace SendMan
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // 他のボタンを使えなくする
-            button1.Enabled = false;
-            button2.Enabled = false;
-            textBox1.Enabled = false;
-            if (!textBox1.Text.EndsWith(@"\"))
-                textBox1.Text = textBox1.Text + @"\";
-            classroomlabel = File.ReadLines(@"temp.txt").Skip(0).First();
-            classroom_ip_min = File.ReadLines(@"temp2.txt").Skip(0).First();
-            classroom_ip_max = File.ReadLines(@"temp2.txt").Skip(1).First();
-            classroom_ip = File.ReadLines(@"temp2.txt").Skip(2).First();
-            if (int.Parse(classroom_ip_min) < 10)
-                dstpath_min = @"\\" + classroom_ip + "10" + classroom_ip_min + @"\C$\" + textBox1.Text;
-            else
-                dstpath_min = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
-            if (!Directory.Exists(dstpath_min))
-            {
-                MessageBox.Show("そのようなディレクトリは存在しないか、アクセス権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // 他のボタンを使えるようにする
-                button1.Enabled = true;
-                button2.Enabled = true;
-                textBox1.Enabled = true;
-            }
+            if (comboBox1.SelectedItem != null || string.IsNullOrEmpty(comboBox1.Text) == false)
+                MessageBox.Show("送信先のドライブを選択してください。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                // 失敗ログを作成
-                sw = File.CreateText(@"failedlog.txt");
-                sw.WriteLine("---コピーに失敗したPC---");
+                // 他のボタンを使えなくする
+                button1.Enabled = false;
+                button2.Enabled = false;
+                textBox1.Enabled = false;
+                if (!textBox1.Text.EndsWith(@"\"))
+                    textBox1.Text = textBox1.Text + @"\";
+                classroomlabel = File.ReadLines(@"temp.txt").Skip(0).First();
+                classroom_ip_min = File.ReadLines(@"temp2.txt").Skip(0).First();
+                classroom_ip_max = File.ReadLines(@"temp2.txt").Skip(1).First();
+                classroom_ip = File.ReadLines(@"temp2.txt").Skip(2).First();
+                dstDrive = comboBox1.Text;
+                if (int.Parse(classroom_ip_min) < 10)
+                    dstpath_min = @"\\" + classroom_ip + "10" + classroom_ip_min + @"\C$\" + textBox1.Text;
+                else
+                    dstpath_min = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\C$\" + textBox1.Text;
+                if (!Directory.Exists(dstpath_min))
+                {
+                    MessageBox.Show("そのようなディレクトリは存在しないか、アクセス権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // 他のボタンを使えるようにする
+                    button1.Enabled = true;
+                    button2.Enabled = true;
+                    textBox1.Enabled = true;
+                }
+                else
+                {
+                    // 失敗ログを作成
+                    sw = File.CreateText(@"failedlog.txt");
+                    sw.WriteLine("---コピーに失敗したPC---");
 
-                // ファイルコピーメソッド実行
-                if (Class.modeFlag == "file")
-                    CopyFiles("SOURCE", dstpath_min);
-                else if (Class.modeFlag == "folder")
-                    CopyDirectory("SOURCE", dstpath_min);
+                    // ファイルコピーメソッド実行
+                    if (Class.modeFlag == "file")
+                        CopyFiles("SOURCE", dstpath_min);
+                    else if (Class.modeFlag == "folder")
+                        CopyDirectory("SOURCE", dstpath_min);
+                }
             }
         }
 
@@ -89,12 +96,12 @@ namespace SendMan
             {
                 if (i < 10)
                 {
-                    dstPath = @"\\" + classroom_ip + "10" + i + @"\C$\" + textBox1.Text;
+                    dstPath = @"\\" + classroom_ip + "10" + i + @"\" + dstDrive + @"$\" + textBox1.Text;
                     ipaddress = classroom_ip + "10" + i;
                 }
                 else
                 {
-                    dstPath = @"\\" + classroom_ip + "1" + i + @"\C$\" + textBox1.Text;
+                    dstPath = @"\\" + classroom_ip + "1" + i + @"\" + dstDrive + @"$\" + textBox1.Text;
                     ipaddress = classroom_ip + "1" + i;
                 }
 
@@ -170,12 +177,12 @@ namespace SendMan
             {
                 if (i < 10)
                 {
-                    dstPath = @"\\" + classroom_ip + "10" + i + @"\C$\" + textBox1.Text;
+                    dstPath = @"\\" + classroom_ip + "10" + i + @"\" + dstDrive + @"$\" + textBox1.Text;
                     ipaddress = classroom_ip + "10" + i;
                 }
                 else
                 {
-                    dstPath = @"\\" + classroom_ip + "1" + i + @"\C$\" + textBox1.Text;
+                    dstPath = @"\\" + classroom_ip + "1" + i + @"\" + dstDrive + @"$\" + textBox1.Text;
                     ipaddress = classroom_ip + "1" + i;
                 }
 
@@ -240,6 +247,7 @@ namespace SendMan
         {
             titlepictureBox.Parent = barpictureBox;
             titlepictureBox.BackColor = Color.Transparent;
+            comboBox1.SelectedIndex = 0;
         }
 
         private void button2_Click(object sender, EventArgs e)

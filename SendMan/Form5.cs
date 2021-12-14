@@ -206,5 +206,9 @@ namespace SendMan
             button1.BackColor = Color.MediumSeaGreen;
             classroomlabel = "IMCSTU2";
         }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+        }
     }
 }
