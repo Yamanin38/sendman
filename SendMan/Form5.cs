@@ -18,17 +18,17 @@ namespace SendMan
     {
         private Hashtable ip = new Hashtable
         {
-            ["5A"] = 35,
-            ["5B"] = 36,
-            ["5C"] = 38,
-            ["5D1"] = 46,
-            ["5D2"] = 46,
-            ["7A"] = 39,
-            ["7B"] = 40,
-            ["7C"] = 45,
-            ["8B"] = 42,
-            ["8C"] = 43,
-            ["8D"] = 44,
+            ["5A"] = int.Parse(ConfigurationManager.AppSettings["5A"]),
+            ["5B"] = int.Parse(ConfigurationManager.AppSettings["5B"]),
+            ["5C"] = int.Parse(ConfigurationManager.AppSettings["5C"]),
+            ["5D1"] = int.Parse(ConfigurationManager.AppSettings["5D1"]),
+            ["5D2"] = int.Parse(ConfigurationManager.AppSettings["5D2"]),
+            ["7A"] = int.Parse(ConfigurationManager.AppSettings["7A"]),
+            ["7B"] = int.Parse(ConfigurationManager.AppSettings["7B"]),
+            ["7C"] = int.Parse(ConfigurationManager.AppSettings["7C"]),
+            ["8B"] = int.Parse(ConfigurationManager.AppSettings["8B"]),
+            ["8C"] = int.Parse(ConfigurationManager.AppSettings["8C"]),
+            ["8D"] = int.Parse(ConfigurationManager.AppSettings["8D"]),
         };
         private string classroomlabel;
         private Form1 f1 = new Form1();
