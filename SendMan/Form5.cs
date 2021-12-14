@@ -29,6 +29,8 @@ namespace SendMan
             ["8B"] = int.Parse(ConfigurationManager.AppSettings["8B"]),
             ["8C"] = int.Parse(ConfigurationManager.AppSettings["8C"]),
             ["8D"] = int.Parse(ConfigurationManager.AppSettings["8D"]),
+            ["WILD"] = int.Parse(ConfigurationManager.AppSettings["WILD"]),
+            ["PLUSIP"] = ConfigurationManager.AppSettings["PLUSIP"]
         };
         private string classroomlabel;
         private Form1 f1 = new Form1();
@@ -82,6 +84,7 @@ namespace SendMan
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Class.plusIP = (string)ip["PLUSIP"];
             string srcfolder = "SOURCE";
             if (!Directory.Exists(srcfolder))
                 Directory.CreateDirectory(srcfolder);
@@ -209,6 +212,14 @@ namespace SendMan
 
         private void button2_Click_1(object sender, EventArgs e)
         {
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            labelClassroom.Text = "WILD";
+            button1.Enabled = true;
+            button1.BackColor = Color.MediumSeaGreen;
+            classroomlabel = "WILD";
         }
     }
 }

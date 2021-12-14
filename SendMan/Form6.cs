@@ -23,6 +23,8 @@ namespace SendMan
         private string classroom_ip;
         private string ipaddress;
         private string dstDrive;
+        private string ipPlus;
+        private string ipPlus2;
         public Form6()
         {
             InitializeComponent();
@@ -34,6 +36,8 @@ namespace SendMan
                 MessageBox.Show("送信先のドライブを選択してください。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
+                ipPlus = Class.plusIP.Substring(0, 2);
+                ipPlus2 = Class.plusIP.Substring(0, 1);
                 // 他のボタンを使えなくする
                 button1.Enabled = false;
                 button2.Enabled = false;
@@ -46,9 +50,9 @@ namespace SendMan
                 classroom_ip = File.ReadLines(@"temp2.txt").Skip(2).First();
                 dstDrive = comboBox1.Text;
                 if (int.Parse(classroom_ip_min) < 10)
-                    dstpath_min = @"\\" + classroom_ip + "10" + classroom_ip_min + @"\" + dstDrive + @"$\" + textBox1.Text;
+                    dstpath_min = @"\\" + classroom_ip + ipPlus + classroom_ip_min + @"\" + dstDrive + @"$\" + textBox1.Text;
                 else
-                    dstpath_min = @"\\" + classroom_ip + "1" + classroom_ip_min + @"\" + dstDrive + @"$\" + textBox1.Text;
+                    dstpath_min = @"\\" + classroom_ip + ipPlus2 + classroom_ip_min + @"\" + dstDrive + @"$\" + textBox1.Text;
                 if (!Directory.Exists(dstpath_min))
                 {
                     MessageBox.Show("そのようなディレクトリは存在しないか、アクセス権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -96,13 +100,13 @@ namespace SendMan
             {
                 if (i < 10)
                 {
-                    dstPath = @"\\" + classroom_ip + "10" + i + @"\" + dstDrive + @"$\" + textBox1.Text;
-                    ipaddress = classroom_ip + "10" + i;
+                    dstPath = @"\\" + classroom_ip + ipPlus + i + @"\" + dstDrive + @"$\" + textBox1.Text;
+                    ipaddress = classroom_ip + ipPlus + i;
                 }
                 else
                 {
-                    dstPath = @"\\" + classroom_ip + "1" + i + @"\" + dstDrive + @"$\" + textBox1.Text;
-                    ipaddress = classroom_ip + "1" + i;
+                    dstPath = @"\\" + classroom_ip + ipPlus2 + i + @"\" + dstDrive + @"$\" + textBox1.Text;
+                    ipaddress = classroom_ip + ipPlus2 + i;
                 }
 
                 //ProgressBar1の値を変更する
@@ -177,13 +181,13 @@ namespace SendMan
             {
                 if (i < 10)
                 {
-                    dstPath = @"\\" + classroom_ip + "10" + i + @"\" + dstDrive + @"$\" + textBox1.Text;
-                    ipaddress = classroom_ip + "10" + i;
+                    dstPath = @"\\" + classroom_ip + ipPlus + i + @"\" + dstDrive + @"$\" + textBox1.Text;
+                    ipaddress = classroom_ip + ipPlus + i;
                 }
                 else
                 {
-                    dstPath = @"\\" + classroom_ip + "1" + i + @"\" + dstDrive + @"$\" + textBox1.Text;
-                    ipaddress = classroom_ip + "1" + i;
+                    dstPath = @"\\" + classroom_ip + ipPlus2 + i + @"\" + dstDrive + @"$\" + textBox1.Text;
+                    ipaddress = classroom_ip + ipPlus2 + i;
                 }
 
                 //ProgressBar1の値を変更する
