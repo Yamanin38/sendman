@@ -42,13 +42,15 @@
             this.button8C = new System.Windows.Forms.Button();
             this.button8D = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.labelClassroom = new System.Windows.Forms.Label();
             this.titlepictureBox = new System.Windows.Forms.PictureBox();
             this.barpictureBox = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titlepictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barpictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -56,7 +58,7 @@
             this.button1.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("MV Boli", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(115, 300);
+            this.button1.Location = new System.Drawing.Point(115, 305);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(119, 35);
             this.button1.TabIndex = 0;
@@ -203,6 +205,7 @@
             this.groupBox1.Controls.Add(this.labelClassroom);
             this.groupBox1.Controls.Add(this.button8C);
             this.groupBox1.Controls.Add(this.button8B);
+            this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Font = new System.Drawing.Font("ＭＳ 明朝", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.groupBox1.Location = new System.Drawing.Point(12, 88);
             this.groupBox1.Name = "groupBox1";
@@ -210,6 +213,20 @@
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select a classroom";
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.SystemColors.Control;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.button2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button2.Location = new System.Drawing.Point(237, 176);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(77, 24);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "上級者向け";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click_2);
             // 
             // labelClassroom
             // 
@@ -244,19 +261,16 @@
             this.barpictureBox.TabIndex = 6;
             this.barpictureBox.TabStop = false;
             // 
-            // button2
+            // pictureBox1
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.Control;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.button2.Font = new System.Drawing.Font("MS UI Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button2.Location = new System.Drawing.Point(237, 220);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(77, 24);
-            this.button2.TabIndex = 21;
-            this.button2.Text = "上級者向け";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click_2);
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 206);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(322, 56);
+            this.pictureBox1.TabIndex = 22;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // Form5
             // 
@@ -287,6 +301,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.titlepictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barpictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -310,6 +325,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelClassroom;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

@@ -32,7 +32,7 @@ namespace SendMan
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedItem != null || string.IsNullOrEmpty(comboBox1.Text) == false)
+            if (comboBox1.SelectedItem == null || string.IsNullOrEmpty(comboBox1.Text) == true)
                 MessageBox.Show("送信先のドライブを選択してください。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {

@@ -221,5 +221,10 @@ namespace SendMan
             button1.BackColor = Color.MediumSeaGreen;
             classroomlabel = "WILD";
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
