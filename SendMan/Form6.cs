@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Net.NetworkInformation;
-using System.Management.Automation;
-using System.Management.Automation.Runspaces;
+using System.Diagnostics;
 
 namespace SendMan
 {
@@ -27,20 +26,23 @@ namespace SendMan
         private string dstDrive;
         private string ipPlus;
         private string ipPlus2;
-        private string psPath = "test.ps1";
+        readonly Process p = new Process();
         public Form6()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+    private void button1_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem == null || string.IsNullOrEmpty(comboBox1.Text) == true)
                 MessageBox.Show("送信先のドライブを選択してください。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                ipPlus = Class.plusIP.Substring(0, 2);
-                ipPlus2 = Class.plusIP.Substring(0, 1);
+                if (Class.plusIP != "")
+                {
+                    ipPlus = Class.plusIP.Substring(0, 2);
+                    ipPlus2 = Class.plusIP.Substring(0, 1);
+                }
                 // 他のボタンを使えなくする
                 button1.Enabled = false;
                 button2.Enabled = false;
@@ -163,8 +165,6 @@ namespace SendMan
         public void CopyDirectory(string srcPath, string dstPath)
         {
             PingReply reply;
-            DirectoryInfo dir = new DirectoryInfo(srcPath);
-            DirectoryInfo[] folders = dir.GetDirectories("*", SearchOption.AllDirectories);
             // 他のボタンを使えなくする
             label3.Visible = true;
             progressBar1.Visible = true;
@@ -191,6 +191,7 @@ namespace SendMan
                 {
                     dstPath = @"\\" + classroom_ip + ipPlus2 + i + @"\" + dstDrive + @"$\" + textBox1.Text;
                     ipaddress = classroom_ip + ipPlus2 + i;
+                    //dstPath→\\172.24.oo.ooo\o$\ooo\
                 }
 
                 //ProgressBar1の値を変更する
@@ -200,26 +201,29 @@ namespace SendMan
 
                 //Label1を再描画する
                 label3.Update();
+                    reply = sender.Send(ipaddress);
+                if (reply.Status != IPStatus.Success)
+                    throw new Exception();
+                else
+                    dstPath = @"\\192.168.11.15\C$\Users\yamanin-Note\Desktop\";
+                    p.StartInfo.FileName = "test.bat";
+                    p.StartInfo.Arguments = "SOURCE " + dstPath;
+                    p.StartInfo.CreateNoWindow = false;
+                    p.StartInfo.RedirectStandardOutput = true; //標準出力を有効にする
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.Verb = "RunAs"; //管理者として実行する場合
 
-                foreach (var folder in folders)
-                {
-                    string dst = dstPath + folder.Name;
-                    try
-                    {
-                        reply = sender.Send(ipaddress);
-                        if (reply.Status != IPStatus.Success)
-                            throw new Exception();
-                        else
-                            
-                            File.Copy(folder.FullName, dst, true);
-                    }
-                    catch
+                    p.Start(); //実行
+                    Class.results = p.StandardOutput.ReadToEnd();
+                    p.WaitForExit();
+                    p.Close();
+                    Class.results = Class.results.Substring(0, 1);
+                    if (Class.results != "0")
                     {
                         // ログファイルに失敗したPC名を記載する処理
                         sw.WriteLine(classroomlabel + i);
-                        break;
                     }
-                }
+                    //File.Copy(folder.FullName, dst, true);
             }
             // ファイルを閉じる
             sw.Close();

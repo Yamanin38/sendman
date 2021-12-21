@@ -84,7 +84,12 @@ namespace SendMan
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Class.plusIP = (string)ip["PLUSIP"];
+            if ((string)ip["PLUSIP"] == "0")
+            {
+                Class.plusIP = "";
+            }else {
+                Class.plusIP = (string)ip["PLUSIP"];
+            }
             string srcfolder = "SOURCE";
             if (!Directory.Exists(srcfolder))
                 Directory.CreateDirectory(srcfolder);

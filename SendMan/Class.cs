@@ -10,5 +10,6 @@ namespace SendMan
     {
         public static string modeFlag;
         public static string plusIP;
+        public static string results;
     }
 }

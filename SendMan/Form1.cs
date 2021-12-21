@@ -32,7 +32,7 @@ namespace SendMan
                 StreamWriter sw1 = File.CreateText(@"temp2.txt");
                 sw1.WriteLine(numericUpDown1.Value);
                 sw1.WriteLine(numericUpDown2.Value);
-                sw1.WriteLine(@"172.24." + File.ReadLines(@"temp.txt").Skip(1).First() + @".");
+                sw1.WriteLine(@"192.168." + File.ReadLines(@"temp.txt").Skip(1).First() + @".");
                 sw1.Close();
                 // 画面を非表示
                 this.Visible = false;
