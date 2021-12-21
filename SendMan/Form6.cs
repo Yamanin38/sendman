@@ -138,7 +138,7 @@ namespace SendMan
                 // PINGを送って生存確認(なければスルーし失敗PCに記述
                     reply = sender.Send(ipaddress);
                 if (reply.Status != IPStatus.Success)
-                    throw new Exception();
+                    sw.WriteLine(classroomlabel + i);
                 else
                 {
                     // バッチファイル名を指定
@@ -168,7 +168,7 @@ namespace SendMan
                     Class.results = p.StandardOutput.ReadToEnd();
 
                     // resultの数字だけ切り抜く
-                    Class.results = Class.results.Substring(0, 1);
+                    // Class.results = Class.results.Substring(0, 1);
 
                     // 終わるまで待つ処理
                     p.WaitForExit();
@@ -176,7 +176,7 @@ namespace SendMan
                     // 閉じる
                     p.Close();
 
-                    if (Class.results != "0") // 成功しなかったら(0じゃなければ)
+                    if (!Class.results.Contains("コピーしました")) // 成功が含まれていなかったら
                     {
                         // ログファイルに失敗したPC名を記載する処理
                         sw.WriteLine(classroomlabel + i);
