@@ -48,8 +48,8 @@ namespace SendMan
             sw.Close();
             //次画面を非表示
             this.Visible = false;
-            Form3 f3 = new Form3();
-            f3.Show();
+            Form1 f1 = new Form1();
+            f1.Show();
 
         }
 

@@ -28,11 +28,12 @@ namespace SendMan
             else
             {
                 MessageBox.Show("ディレクトリ確認のため、必ずコピー開始PCの電源は点けてください。", "確認", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 // temp2の1行目と2行目にそれぞれ最小値と最大値を、3行目にIPアドレスの完成形を記載する
                 StreamWriter sw1 = File.CreateText(@"temp2.txt");
                 sw1.WriteLine(numericUpDown1.Value);
                 sw1.WriteLine(numericUpDown2.Value);
-                sw1.WriteLine(@"192.168." + File.ReadLines(@"temp.txt").Skip(1).First() + @".");
+                sw1.WriteLine(@"172.24." + File.ReadLines(@"temp.txt").Skip(1).First() + @".");
                 sw1.Close();
                 // 画面を非表示
                 this.Visible = false;
@@ -64,8 +65,8 @@ namespace SendMan
         {
             // 画面を非表示
             this.Visible = false;
-            Form3 f3 = new Form3();
-            f3.Show();
+            Form5 f5 = new Form5();
+            f5.Show();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

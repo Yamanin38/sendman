@@ -34,33 +34,47 @@ namespace SendMan
 
     private void button1_Click(object sender, EventArgs e)
         {
+            // ドライブのコンボボックスがカラだったら警告
             if (comboBox1.SelectedItem == null || string.IsNullOrEmpty(comboBox1.Text) == true)
                 MessageBox.Show("送信先のドライブを選択してください。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
+                // 設定ファイルの第4オクテットが空白でなければ値を代入する
                 if (Class.plusIP != "")
                 {
                     ipPlus = Class.plusIP.Substring(0, 2);
                     ipPlus2 = Class.plusIP.Substring(0, 1);
                 }
+
                 // 他のボタンを使えなくする
                 button1.Enabled = false;
                 button2.Enabled = false;
                 textBox1.Enabled = false;
+
+                // ファイルパスの最後に\を付ける
                 if (!textBox1.Text.EndsWith(@"\"))
                     textBox1.Text = textBox1.Text + @"\";
+
+                // tempファイルに教室名、IP最小値、IP最大値、第3オクテットを記述
                 classroomlabel = File.ReadLines(@"temp.txt").Skip(0).First();
                 classroom_ip_min = File.ReadLines(@"temp2.txt").Skip(0).First();
                 classroom_ip_max = File.ReadLines(@"temp2.txt").Skip(1).First();
                 classroom_ip = File.ReadLines(@"temp2.txt").Skip(2).First();
+
+                // コンボボックスからドライブ名をdstDriveに代入
                 dstDrive = comboBox1.Text;
+
+                // PC番号が10以前か以降で違う処理をする(dstpath_minに送り先の最小PCのIPアドレス+パスを代入する)
                 if (int.Parse(classroom_ip_min) < 10)
                     dstpath_min = @"\\" + classroom_ip + ipPlus + classroom_ip_min + @"\" + dstDrive + @"$\" + textBox1.Text;
                 else
                     dstpath_min = @"\\" + classroom_ip + ipPlus2 + classroom_ip_min + @"\" + dstDrive + @"$\" + textBox1.Text;
+
+                // 最初のPCでディレクトリが存在するかを確認
                 if (!Directory.Exists(dstpath_min))
                 {
                     MessageBox.Show("そのようなディレクトリは存在しないか、アクセス権限がありません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     // 他のボタンを使えるようにする
                     button1.Enabled = true;
                     button2.Enabled = true;
@@ -68,17 +82,125 @@ namespace SendMan
                 }
                 else
                 {
-                    // 失敗ログを作成
+                    // 失敗ログファイルを作成
                     sw = File.CreateText(@"failedlog.txt");
                     sw.WriteLine("---コピーに失敗したPC---");
 
                     // ファイルコピーメソッド実行
-                    if (Class.modeFlag == "file")
-                        CopyFiles("SOURCE", dstpath_min);
-                    else if (Class.modeFlag == "folder")
-                        CopyDirectory("SOURCE", dstpath_min);
+                    CopyDirectory("SOURCE", dstpath_min);
                 }
             }
+        }
+        public void CopyDirectory(string srcPath, string dstPath)
+        {
+            // PING用の宣言
+            PingReply reply;
+
+            // 他のボタンを使えなくする
+            label3.Visible = true;
+            progressBar1.Visible = true;
+            button1.Enabled = false;
+            button2.Enabled = false;
+            textBox1.Enabled = false;
+
+            // プログレスバーのコントロールを初期化する
+            progressBar1.Minimum = int.Parse(classroom_ip_min);
+            progressBar1.Maximum = int.Parse(classroom_ip_max) + 1;
+            progressBar1.Value = int.Parse(classroom_ip_min);
+            label3.Text = "コピー開始";
+
+            // プログレスバー上のlabel3を再描画する
+            label3.Update();
+
+            // PCの最小から最大までの回数ループする
+            for (int i = int.Parse(classroom_ip_min); i <= int.Parse(classroom_ip_max); i++)
+            {
+                if (i < 10)
+                {
+                    dstPath = @"\\" + classroom_ip + ipPlus + i + @"\" + dstDrive + @"$\" + textBox1.Text;
+                    ipaddress = classroom_ip + ipPlus + i;
+                }
+                else
+                {
+                    dstPath = @"\\" + classroom_ip + ipPlus2 + i + @"\" + dstDrive + @"$\" + textBox1.Text;
+                    ipaddress = classroom_ip + ipPlus2 + i;
+                    //dstPath→\\172.24.oo.ooo\o$\ooo\
+                }
+
+                //ProgressBar1の値を変更する
+                progressBar1.Value = i + 1;
+                //Label1のテキストを変更する
+                label3.Text = classroomlabel + i + "にコピー中...";
+
+                //Label1を再描画する
+                label3.Update();
+
+                // PINGを送って生存確認(なければスルーし失敗PCに記述
+                    reply = sender.Send(ipaddress);
+                if (reply.Status != IPStatus.Success)
+                    throw new Exception();
+                else
+                {
+                    // バッチファイル名を指定
+                    p.StartInfo.FileName = "FileCopy.bat";
+
+                    // dstPath = @"\\192.168.11.33\C$\Users\やまにん\Desktop\"; // デバッグ用パス
+
+                    // xcopy SOURCE dstPath\ /E /Yとなっている
+                    p.StartInfo.Arguments = "SOURCE " + dstPath;
+
+                    // コンソールウインドウを非表示にする
+                    p.StartInfo.CreateNoWindow = true;
+
+                    // 標準出力を有効にする
+                    p.StartInfo.RedirectStandardOutput = true;
+
+                    // これをしないとエラーが出る
+                    p.StartInfo.UseShellExecute = false;
+
+                    // 管理者として実行する場合
+                    p.StartInfo.Verb = "RunAs";
+
+                    // 実行
+                    p.Start();
+
+                    // batファイルの返り値をresultに代入
+                    Class.results = p.StandardOutput.ReadToEnd();
+
+                    // resultの数字だけ切り抜く
+                    Class.results = Class.results.Substring(0, 1);
+
+                    // 終わるまで待つ処理
+                    p.WaitForExit();
+
+                    // 閉じる
+                    p.Close();
+
+                    if (Class.results != "0") // 成功しなかったら(0じゃなければ)
+                    {
+                        // ログファイルに失敗したPC名を記載する処理
+                        sw.WriteLine(classroomlabel + i);
+                    }
+                }
+            }
+            // 失敗ログファイルを閉じる
+            sw.Close();
+
+            // 結果を報告する
+            label3.Text = "完了しました。";
+
+            // ダイアログ表示
+            MessageBox.Show("コピーが完了しました、コピーに失敗したPCはfailedlog.txtへ出力されます。", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // 他のボタンを使えるようにする
+            button1.Enabled = true;
+            button2.Enabled = true;
+            textBox1.Enabled = true;
+
+            // 画面を切り替え
+            this.Visible = false;
+            Form5 f5 = new Form5();
+            f5.Show();
         }
 
         public void CopyFiles(string srcPath, string dstPath)
@@ -160,89 +282,6 @@ namespace SendMan
             Form5 f5 = new Form5();
             f5.Show();
 
-        }
-
-        public void CopyDirectory(string srcPath, string dstPath)
-        {
-            PingReply reply;
-            // 他のボタンを使えなくする
-            label3.Visible = true;
-            progressBar1.Visible = true;
-            button1.Enabled = false;
-            button2.Enabled = false;
-            textBox1.Enabled = false;
-
-            //コントロールを初期化する
-            progressBar1.Minimum = int.Parse(classroom_ip_min);
-            progressBar1.Maximum = int.Parse(classroom_ip_max) + 1;
-            progressBar1.Value = int.Parse(classroom_ip_min);
-            label3.Text = "コピー開始";
-            //label3を再描画する
-            label3.Update();
-
-            for (int i = int.Parse(classroom_ip_min); i <= int.Parse(classroom_ip_max); i++)
-            {
-                if (i < 10)
-                {
-                    dstPath = @"\\" + classroom_ip + ipPlus + i + @"\" + dstDrive + @"$\" + textBox1.Text;
-                    ipaddress = classroom_ip + ipPlus + i;
-                }
-                else
-                {
-                    dstPath = @"\\" + classroom_ip + ipPlus2 + i + @"\" + dstDrive + @"$\" + textBox1.Text;
-                    ipaddress = classroom_ip + ipPlus2 + i;
-                    //dstPath→\\172.24.oo.ooo\o$\ooo\
-                }
-
-                //ProgressBar1の値を変更する
-                progressBar1.Value = i + 1;
-                //Label1のテキストを変更する
-                label3.Text = classroomlabel + i + "にコピー中...";
-
-                //Label1を再描画する
-                label3.Update();
-                    reply = sender.Send(ipaddress);
-                if (reply.Status != IPStatus.Success)
-                    throw new Exception();
-                else
-                    dstPath = @"\\192.168.11.15\C$\Users\yamanin-Note\Desktop\";
-                    p.StartInfo.FileName = "test.bat";
-                    p.StartInfo.Arguments = "SOURCE " + dstPath;
-                    p.StartInfo.CreateNoWindow = false;
-                    p.StartInfo.RedirectStandardOutput = true; //標準出力を有効にする
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.Verb = "RunAs"; //管理者として実行する場合
-
-                    p.Start(); //実行
-                    Class.results = p.StandardOutput.ReadToEnd();
-                    p.WaitForExit();
-                    p.Close();
-                    Class.results = Class.results.Substring(0, 1);
-                    if (Class.results != "0")
-                    {
-                        // ログファイルに失敗したPC名を記載する処理
-                        sw.WriteLine(classroomlabel + i);
-                    }
-                    //File.Copy(folder.FullName, dst, true);
-            }
-            // ファイルを閉じる
-            sw.Close();
-
-            // 結果を報告する
-            label3.Text = "完了しました。";
-
-            // ダイアログ表示
-            MessageBox.Show("コピーが完了しました、失敗したPCはfailedlog.txtへ出力されます。", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // 他のボタンを使えるようにする
-            button1.Enabled = true;
-            button2.Enabled = true;
-            textBox1.Enabled = true;
-
-            // 画面を切り替え
-            this.Visible = false;
-            Form5 f5 = new Form5();
-            f5.Show();
         }
 
         private void label2_Click(object sender, EventArgs e)
