@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Net.NetworkInformation;
+using System.Management.Automation;
+using System.Management.Automation.Runspaces;
 
 namespace SendMan
 {
@@ -25,6 +27,7 @@ namespace SendMan
         private string dstDrive;
         private string ipPlus;
         private string ipPlus2;
+        private string psPath = "test.ps1";
         public Form6()
         {
             InitializeComponent();
@@ -207,6 +210,7 @@ namespace SendMan
                         if (reply.Status != IPStatus.Success)
                             throw new Exception();
                         else
+                            
                             File.Copy(folder.FullName, dst, true);
                     }
                     catch
