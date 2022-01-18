@@ -10,5 +10,6 @@ namespace SendMan
     {
         public static string plusIP;
         public static string results;
+        public static string dst_min;
     }
 }
