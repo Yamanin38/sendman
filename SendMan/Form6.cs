@@ -99,117 +99,6 @@ namespace SendMan
                 }
             }
         }
-        //public void CopyDirectory(string srcPath, string dstPath)
-        //{
-        //    // PING用の宣言
-        //    PingReply reply;
-
-        //    // 他のボタンを使えなくする
-        //    label3.Visible = true;
-        //    progressBar1.Visible = true;
-        //    button1.Enabled = false;
-        //    button2.Enabled = false;
-        //    textBox1.Enabled = false;
-
-        //    // プログレスバーのコントロールを初期化する
-        //    progressBar1.Minimum = int.Parse(classroom_ip_min);
-        //    progressBar1.Maximum = int.Parse(classroom_ip_max) + 1;
-        //    progressBar1.Value = int.Parse(classroom_ip_min);
-        //    label3.Text = "コピー開始";
-
-        //    // プログレスバー上のlabel3を再描画する
-        //    label3.Update();
-
-        //    // PCの最小から最大までの回数ループする
-        //    for (int i = int.Parse(classroom_ip_min); i <= int.Parse(classroom_ip_max); i++)
-        //    {
-        //        if (i < 10)
-        //        {
-        //            dstPath = @"\\" + classroom_ip + ipPlus + i + @"\" + dstDrive + @"$\" + textBox1.Text;
-        //            ipaddress = classroom_ip + ipPlus + i;
-        //        }
-        //        else
-        //        {
-        //            dstPath = @"\\" + classroom_ip + ipPlus2 + i + @"\" + dstDrive + @"$\" + textBox1.Text;
-        //            ipaddress = classroom_ip + ipPlus2 + i;
-        //            //dstPath→\\172.24.oo.ooo\o$\ooo\
-        //        }
-
-        //        //ProgressBar1の値を変更する
-        //        progressBar1.Value = i + 1;
-        //        //Label1のテキストを変更する
-        //        label3.Text = classroomlabel + i + "にコピー中...";
-
-        //        //Label1を再描画する
-        //        label3.Update();
-
-        //        // PINGを送って生存確認(なければスルーし失敗PCに記述
-        //        reply = sender.Send(ipaddress);
-        //        if (reply.Status != IPStatus.Success)
-        //            sw.WriteLine(classroomlabel + i);
-        //        else
-        //        {
-        //            // バッチファイル名を指定
-        //            p.StartInfo.FileName = "FileCopy.bat";
-
-        //            // dstPath = @"\\192.168.11.33\C$\Users\やまにん\Desktop\"; // デバッグ用パス
-
-        //            // xcopy SOURCE dstPath\ /E /Yとなっている
-        //            p.StartInfo.Arguments = "SOURCE " + dstPath;
-
-        //            // コンソールウインドウを非表示にする
-        //            p.StartInfo.CreateNoWindow = true;
-
-        //            // 標準出力を有効にする
-        //            p.StartInfo.RedirectStandardOutput = true;
-
-        //            // これをしないとエラーが出る
-        //            p.StartInfo.UseShellExecute = false;
-
-        //            // 管理者として実行する場合
-        //            p.StartInfo.Verb = "RunAs";
-
-        //            // 実行
-        //            p.Start();
-
-        //            // batファイルの返り値をresultに代入
-        //            Class.results = p.StandardOutput.ReadToEnd();
-
-        //            // resultの数字だけ切り抜く
-        //            // Class.results = Class.results.Substring(0, 1);
-
-        //            // 終わるまで待つ処理
-        //            p.WaitForExit();
-
-        //            // 閉じる
-        //            p.Close();
-
-        //            if (!Class.results.Contains("コピーしました")) // 成功が含まれていなかったら
-        //            {
-        //                // ログファイルに失敗したPC名を記載する処理
-        //                sw.WriteLine(classroomlabel + i);
-        //            }
-        //        }
-        //    }
-        //    // 失敗ログファイルを閉じる
-        //    sw.Close();
-
-        //    // 結果を報告する
-        //    label3.Text = "完了しました。";
-
-        //    // ダイアログ表示
-        //    MessageBox.Show("コピーが完了しました、コピーに失敗したPCはfailedlog.txtへ出力されます。", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-        //    // 他のボタンを使えるようにする
-        //    button1.Enabled = true;
-        //    button2.Enabled = true;
-        //    textBox1.Enabled = true;
-
-        //    // 画面を切り替え
-        //    this.Visible = false;
-        //    Form5 f5 = new Form5();
-        //    f5.Show();
-        //}
 
         private void label2_Click(object sender, EventArgs e)
         {
@@ -253,7 +142,8 @@ namespace SendMan
 
         }
 
-        delegate void DelegateProcess();//delegateを宣言
+        //delegateを宣言
+        delegate void DelegateProcess();
 
         public void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -270,26 +160,8 @@ namespace SendMan
             DelegateProcess refreshLabel3 = new DelegateProcess(RefreshLabel3);
             DelegateProcess controlEnable = new DelegateProcess(ControlEnable);
 
-            //// 他のボタンを使えなくする
-            //label3.Visible = true;
-            //progressBar1.Visible = true;
-            //button1.Enabled = false;
-            //button2.Enabled = false;
-            //textBox1.Enabled = false;
-
-            //// フォームのコントロールを無効化
-            //ControlBox = !ControlBox;
-
-            //// プログレスバーのコントロールを初期化する
-            //progressBar1.Minimum = int.Parse(classroom_ip_min);
-            //progressBar1.Maximum = int.Parse(classroom_ip_max) + 1;
-            //progressBar1.Value = int.Parse(classroom_ip_min);
-            //label3.Text = "コピー開始";
-
-            // プログレスバー上のlabel3を再描画する
-            //label3.Update();
-
-            this.Invoke(controlFalse);//delegateを実行(上記コメントアウトしている処理を実行)
+            // delegate(controlFalse)を実行
+            this.Invoke(controlFalse);
 
             // PCの最小から最大までの回数ループする
             for (int i = int.Parse(classroom_ip_min); i <= int.Parse(classroom_ip_max); i++)
@@ -307,20 +179,12 @@ namespace SendMan
                     //dstPath→\\172.24.oo.ooo\o$\ooo\
                 }
 
-                //ProgressBar1の値を変更する
-                // progressBar1.Value = i + 1;
-
                 //進捗状況の報告
                 this.backgroundWorker1.ReportProgress(i + 1);
                 System.Threading.Thread.Sleep(100);
 
-                ////Label1のテキストを変更する
-                //label3.Text = classroomlabel + i + "にコピー中...";
-
-                //Label1を再描画する
-                //label3.Update();
-
-                this.Invoke(refreshLabel3);//delegateを実行(上記コメントアウトしている処理を実行)
+                // delegate(refreshLabel3)を実行
+                this.Invoke(refreshLabel3);
 
                 // PINGを送って生存確認(なければスルーし失敗PCに記述
                 reply =sender2.Send(ipaddress);
@@ -330,8 +194,6 @@ namespace SendMan
                 {
                     // バッチファイル名を指定
                     p.StartInfo.FileName = "FileCopy.bat";
-
-                    // dstPath = @"\\192.168.11.33\C$\Users\やまにん\Desktop\"; // デバッグ用パス
 
                     // xcopy SOURCE dstPath\ /E /Yとなっている
                     p.StartInfo.Arguments = "SOURCE " + dstPath;
@@ -373,26 +235,11 @@ namespace SendMan
             // 失敗ログファイルを閉じる
             sw.Close();
 
-            //// 結果を報告する
-            //label3.Text = "完了しました。";
-
             // ダイアログ表示
             MessageBox.Show("コピーが完了しました、コピーに失敗したPCはfailedlog.txtへ出力されます。", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            //// 他のボタンを使えるようにする
-            //button1.Enabled = true;
-            //button2.Enabled = true;
-            //textBox1.Enabled = true;
-
-            //// フォームのコントロールを有効化
-            //ControlBox = !ControlBox;
-
-            //// 画面を切り替え
-            //this.Visible = false;
-            //Form5 f5 = new Form5();
-            //f5.Show();
-
-            this.Invoke(controlEnable);//delegateを実行(上記のコメントアウト処理を実行)
+            // delegate(controlEnable)を実行
+            this.Invoke(controlEnable);
 
         }
 
@@ -421,13 +268,14 @@ namespace SendMan
             label3.Text = "コピー開始";
         }
 
-        private void RefreshLabel3()//UIを変更する処理を関数にする
+        // ラベル更新関数
+        private void RefreshLabel3()
         {
-            //Label1のテキストを変更する
+            // Label3のテキストを更新する
             label3.Text = classroomlabel + Class.I + "にコピー中...";
-            return;
         }
 
+        // フォームコントロールを有効にして画面遷移させる関数
         private void ControlEnable()
         {
             // 結果を報告する

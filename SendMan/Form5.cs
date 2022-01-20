@@ -16,6 +16,7 @@ namespace SendMan
 
     public partial class Form5 : Form
     {
+        // ハッシュテーブル作成
         private Hashtable ip = new Hashtable
         {
             ["5A"] = int.Parse(ConfigurationManager.AppSettings["5A"]),
@@ -46,30 +47,12 @@ namespace SendMan
             sw.WriteLine(classroomlabel);
             sw.WriteLine(ip[classroomlabel]);
             sw.Close();
+
             //次画面を非表示
             this.Visible = false;
             Form1 f1 = new Form1();
             f1.Show();
 
-        }
-
-        public void CopyFiles(string srcPath, string dstPath)
-        {
-            System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(srcPath);
-            System.IO.FileInfo[] files =
-                dir.GetFiles("*", System.IO.SearchOption.AllDirectories);
-            try
-            {
-                this.Close();
-                
-            }
-            catch(Exception e)
-            {
-                if (e.Message.Contains("アクセスが拒否"))
-                    MessageBox.Show("ITINSで実行してください(;´･ω･)", "アクセス拒否", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else
-                    MessageBox.Show(e.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -84,15 +67,20 @@ namespace SendMan
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // 第4オクテットが0の場合は何も代入しないようにする処理
             if ((string)ip["PLUSIP"] == "0")
             {
                 Class.plusIP = "";
             }else {
                 Class.plusIP = (string)ip["PLUSIP"];
             }
+
+            // SOURCEフォルダがなければ作成する処理
             string srcfolder = "SOURCE";
             if (!Directory.Exists(srcfolder))
                 Directory.CreateDirectory(srcfolder);
+
+            // ピクチャーボックスの初期設定
             titlepictureBox.Parent = barpictureBox;
             titlepictureBox.BackColor = Color.Transparent;
             button1.Enabled = false;
@@ -101,6 +89,7 @@ namespace SendMan
 
         private void Form5_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // アプリを閉じたらテンポラリファイルを削除する
             File.Delete("temp1.txt");
             File.Delete("temp2.txt");
             Application.Exit();

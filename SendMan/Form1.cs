@@ -21,13 +21,13 @@ namespace SendMan
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //空かどうか確かめたいフォルダ
+            // 空かどうか確かめたいフォルダ
             string dir = @"SOURCE";
 
             //フォルダ内にファイルかフォルダがあるか調べる
             if (!Directory.EnumerateFileSystemEntries(dir).Any())
             {
-                MessageBox.Show("ファイルまたはフォルダが配置されていません\nコピーしたいファイルまたはフォルダを配置してください", "ファイルがありません", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("ファイルまたはフォルダが配置されていません\nコピーしたいファイルまたはフォルダを配置してください", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
@@ -37,7 +37,7 @@ namespace SendMan
                 }
                 else
                 {
-                    MessageBox.Show("ディレクトリ確認のため、必ずコピー開始PCの電源は点けてください。", "確認", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("ディレクトリ確認のため、必ずコピー開始PCの電源は点けてください", "確認", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // temp2の1行目と2行目にそれぞれ最小値と最大値を、3行目にIPアドレスの完成形を記載する
                     StreamWriter sw1 = File.CreateText(@"temp2.txt");
@@ -45,6 +45,7 @@ namespace SendMan
                     sw1.WriteLine(numericUpDown2.Value);
                     sw1.WriteLine(@"172.24." + File.ReadLines(@"temp.txt").Skip(1).First() + @".");
                     sw1.Close();
+
                     // 画面を非表示
                     this.Visible = false;
                     Form6 f6 = new Form6();
@@ -65,8 +66,11 @@ namespace SendMan
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // ピクチャーボックスの初期設定
             titlepictureBox.Parent = barpictureBox;
             titlepictureBox.BackColor = Color.Transparent;
+
+            // 教室名を読み取る
             classroomlabel = File.ReadLines(@"temp.txt").Skip(0).First();
             labelClassroom.Text = classroomlabel;
             label5.Text = classroomlabel;
@@ -82,6 +86,7 @@ namespace SendMan
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // アプリを閉じたらテンポラリファイルを削除する
             File.Delete("temp.txt");
             File.Delete("temp2.txt");
             Application.Exit();
@@ -94,6 +99,7 @@ namespace SendMan
 
         private void button3_Click(object sender, EventArgs e)
         {
+            // エクスプローラーを使ってSOURCEフォルダを開く
             System.Diagnostics.Process.Start("EXPLORER.EXE", "SOURCE");
         }
 
