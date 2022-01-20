@@ -142,7 +142,7 @@ namespace SendMan
 
         }
 
-        //delegateを宣言
+        // delegateを宣言
         delegate void DelegateProcess();
 
         public void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -245,11 +245,11 @@ namespace SendMan
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //進捗状況をプログレスバーに表示
+            // 進捗状況をプログレスバーに表示
             progressBar1.Value = e.ProgressPercentage;
         }
 
-        private void ControlFalse()//UIを変更する処理を関数にする
+        private void ControlFalse()
         {
             // 他のボタンを使えなくする
             label3.Visible = true;
@@ -279,7 +279,7 @@ namespace SendMan
         private void ControlEnable()
         {
             // 結果を報告する
-            label3.Text = "完了しました。";
+            label3.Text = "完了しました";
 
             // 他のボタンを使えるようにする
             button1.Enabled = true;
@@ -289,10 +289,15 @@ namespace SendMan
             // フォームのコントロールを有効化
             ControlBox = !ControlBox;
 
-            // 画面を切り替え
-            this.Visible = false;
-            Form5 f5 = new Form5();
-            f5.Show();
+            // プログレスバーのコントロールを初期化する
+            progressBar1.Minimum = int.Parse(classroom_ip_min);
+            progressBar1.Maximum = int.Parse(classroom_ip_max) + 1;
+            progressBar1.Value = int.Parse(classroom_ip_min);
+
+            //// 画面を切り替え
+            //this.Visible = false;
+            //Form5 f5 = new Form5();
+            //f5.Show();
         }
     }
 }
