@@ -271,7 +271,7 @@ namespace SendMan
             textBox1.Enabled = false;
 
             // フォームのコントロールを無効化
-            this.ControlBox = !this.ControlBox;
+            ControlBox = !ControlBox;
 
             // プログレスバーのコントロールを初期化する
             progressBar1.Minimum = int.Parse(classroom_ip_min);
@@ -373,7 +373,7 @@ namespace SendMan
             textBox1.Enabled = true;
 
             // フォームのコントロールを有効化
-            this.ControlBox = !this.ControlBox;
+            ControlBox = !ControlBox;
 
             // 画面を切り替え
             this.Visible = false;
