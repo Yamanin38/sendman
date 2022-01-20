@@ -253,6 +253,8 @@ namespace SendMan
 
         }
 
+        delegate void DelegateProcess();//delegateを宣言
+
         public void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             // 変数の代入
@@ -263,28 +265,36 @@ namespace SendMan
             PingReply reply;
             Ping sender2 = new Ping();
 
-            // 他のボタンを使えなくする
-            label3.Visible = true;
-            progressBar1.Visible = true;
-            button1.Enabled = false;
-            button2.Enabled = false;
-            textBox1.Enabled = false;
+            // delegateに登録
+            DelegateProcess controlFalse = new DelegateProcess(ControlFalse);
+            DelegateProcess refreshLabel3 = new DelegateProcess(RefreshLabel3);
+            DelegateProcess controlEnable = new DelegateProcess(ControlEnable);
 
-            // フォームのコントロールを無効化
-            ControlBox = !ControlBox;
+            //// 他のボタンを使えなくする
+            //label3.Visible = true;
+            //progressBar1.Visible = true;
+            //button1.Enabled = false;
+            //button2.Enabled = false;
+            //textBox1.Enabled = false;
 
-            // プログレスバーのコントロールを初期化する
-            progressBar1.Minimum = int.Parse(classroom_ip_min);
-            progressBar1.Maximum = int.Parse(classroom_ip_max) + 1;
-            progressBar1.Value = int.Parse(classroom_ip_min);
-            label3.Text = "コピー開始";
+            //// フォームのコントロールを無効化
+            //ControlBox = !ControlBox;
+
+            //// プログレスバーのコントロールを初期化する
+            //progressBar1.Minimum = int.Parse(classroom_ip_min);
+            //progressBar1.Maximum = int.Parse(classroom_ip_max) + 1;
+            //progressBar1.Value = int.Parse(classroom_ip_min);
+            //label3.Text = "コピー開始";
 
             // プログレスバー上のlabel3を再描画する
-            label3.Update();
+            //label3.Update();
+
+            this.Invoke(controlFalse);//delegateを実行(上記コメントアウトしている処理を実行)
 
             // PCの最小から最大までの回数ループする
             for (int i = int.Parse(classroom_ip_min); i <= int.Parse(classroom_ip_max); i++)
             {
+                Class.I = i;
                 if (i < 10)
                 {
                     dstPath = @"\\" + classroom_ip + ipPlus + i + @"\" + dstDrive + @"$\" + textBox1.Text;
@@ -304,11 +314,13 @@ namespace SendMan
                 this.backgroundWorker1.ReportProgress(i + 1);
                 System.Threading.Thread.Sleep(100);
 
-                //Label1のテキストを変更する
-                label3.Text = classroomlabel + i + "にコピー中...";
+                ////Label1のテキストを変更する
+                //label3.Text = classroomlabel + i + "にコピー中...";
 
                 //Label1を再描画する
-                label3.Update();
+                //label3.Update();
+
+                this.Invoke(refreshLabel3);//delegateを実行(上記コメントアウトしている処理を実行)
 
                 // PINGを送って生存確認(なければスルーし失敗PCに記述
                 reply =sender2.Send(ipaddress);
@@ -361,11 +373,65 @@ namespace SendMan
             // 失敗ログファイルを閉じる
             sw.Close();
 
-            // 結果を報告する
-            label3.Text = "完了しました。";
+            //// 結果を報告する
+            //label3.Text = "完了しました。";
 
             // ダイアログ表示
             MessageBox.Show("コピーが完了しました、コピーに失敗したPCはfailedlog.txtへ出力されます。", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //// 他のボタンを使えるようにする
+            //button1.Enabled = true;
+            //button2.Enabled = true;
+            //textBox1.Enabled = true;
+
+            //// フォームのコントロールを有効化
+            //ControlBox = !ControlBox;
+
+            //// 画面を切り替え
+            //this.Visible = false;
+            //Form5 f5 = new Form5();
+            //f5.Show();
+
+            this.Invoke(controlEnable);//delegateを実行(上記のコメントアウト処理を実行)
+
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            //進捗状況をプログレスバーに表示
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void ControlFalse()//UIを変更する処理を関数にする
+        {
+            // 他のボタンを使えなくする
+            label3.Visible = true;
+            progressBar1.Visible = true;
+            button1.Enabled = false;
+            button2.Enabled = false;
+            textBox1.Enabled = false;
+
+            // フォームのコントロールを無効化
+            ControlBox = !ControlBox;
+
+            // プログレスバーのコントロールを初期化する
+            progressBar1.Minimum = int.Parse(classroom_ip_min);
+            progressBar1.Maximum = int.Parse(classroom_ip_max) + 1;
+            progressBar1.Value = int.Parse(classroom_ip_min);
+            label3.Text = "コピー開始";
+        }
+
+        private void RefreshLabel3()//UIを変更する処理を関数にする
+        {
+            //Label1のテキストを変更する
+            label3.Text = classroomlabel + Class.I + "にコピー中...";
+            return;
+        }
+
+        private void ControlEnable()
+        {
+            // 結果を報告する
+            label3.Text = "完了しました。";
 
             // 他のボタンを使えるようにする
             button1.Enabled = true;
@@ -379,13 +445,6 @@ namespace SendMan
             this.Visible = false;
             Form5 f5 = new Form5();
             f5.Show();
-
-        }
-
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            //進捗状況をプログレスバーに表示
-            this.progressBar1.Value = e.ProgressPercentage;
         }
     }
 }
