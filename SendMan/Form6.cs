@@ -149,7 +149,6 @@ namespace SendMan
         {
             // 変数の代入
             string dstPath = Class.dst_min;
-            string srcPath = "SOURCE";
 
             // PING用の宣言
             PingReply reply;
@@ -166,7 +165,9 @@ namespace SendMan
             // PCの最小から最大までの回数ループする
             for (int i = int.Parse(classroom_ip_min); i <= int.Parse(classroom_ip_max); i++)
             {
+                // グローバル変数に代入
                 Class.I = i;
+
                 if (i < 10)
                 {
                     dstPath = @"\\" + classroom_ip + ipPlus + i + @"\" + dstDrive + @"$\" + textBox1.Text;
@@ -176,10 +177,9 @@ namespace SendMan
                 {
                     dstPath = @"\\" + classroom_ip + ipPlus2 + i + @"\" + dstDrive + @"$\" + textBox1.Text;
                     ipaddress = classroom_ip + ipPlus2 + i;
-                    //dstPath→\\172.24.oo.ooo\o$\ooo\
                 }
 
-                //進捗状況の報告
+                // 進捗状況の報告
                 this.backgroundWorker1.ReportProgress(i + 1);
                 System.Threading.Thread.Sleep(100);
 
@@ -236,7 +236,7 @@ namespace SendMan
             sw.Close();
 
             // ダイアログ表示
-            MessageBox.Show("コピーが完了しました、コピーに失敗したPCはfailedlog.txtへ出力されます。", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("コピーが完了\nコピーに失敗したPCは\"failedlog.txt\"へ出力されます。", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // delegate(controlEnable)を実行
             this.Invoke(controlEnable);
@@ -275,7 +275,7 @@ namespace SendMan
             label3.Text = classroomlabel + Class.I + "にコピー中...";
         }
 
-        // フォームコントロールを有効にして画面遷移させる関数
+        // フォームコントロールを有効にする関数
         private void ControlEnable()
         {
             // 結果を報告する
