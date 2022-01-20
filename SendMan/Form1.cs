@@ -21,24 +21,35 @@ namespace SendMan
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (numericUpDown2.Value < numericUpDown1.Value)
+            //空かどうか確かめたいフォルダ
+            string dir = @"SOURCE";
+
+            //フォルダ内にファイルかフォルダがあるか調べる
+            if (!Directory.EnumerateFileSystemEntries(dir).Any())
             {
-                MessageBox.Show("最大値が最小値を下回っています", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ファイルまたはフォルダが配置されていません\nコピーしたいファイルまたはフォルダを配置してください", "ファイルがありません", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
-                MessageBox.Show("ディレクトリ確認のため、必ずコピー開始PCの電源は点けてください。", "確認", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (numericUpDown2.Value < numericUpDown1.Value)
+                {
+                    MessageBox.Show("最大値が最小値を下回っています", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("ディレクトリ確認のため、必ずコピー開始PCの電源は点けてください。", "確認", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // temp2の1行目と2行目にそれぞれ最小値と最大値を、3行目にIPアドレスの完成形を記載する
-                StreamWriter sw1 = File.CreateText(@"temp2.txt");
-                sw1.WriteLine(numericUpDown1.Value);
-                sw1.WriteLine(numericUpDown2.Value);
-                sw1.WriteLine(@"172.24." + File.ReadLines(@"temp.txt").Skip(1).First() + @".");
-                sw1.Close();
-                // 画面を非表示
-                this.Visible = false;
-                Form6 f6 = new Form6();
-                f6.Show();
+                    // temp2の1行目と2行目にそれぞれ最小値と最大値を、3行目にIPアドレスの完成形を記載する
+                    StreamWriter sw1 = File.CreateText(@"temp2.txt");
+                    sw1.WriteLine(numericUpDown1.Value);
+                    sw1.WriteLine(numericUpDown2.Value);
+                    sw1.WriteLine(@"172.24." + File.ReadLines(@"temp.txt").Skip(1).First() + @".");
+                    sw1.Close();
+                    // 画面を非表示
+                    this.Visible = false;
+                    Form6 f6 = new Form6();
+                    f6.Show();
+                }
             }
         }
 
