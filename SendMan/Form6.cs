@@ -257,6 +257,7 @@ namespace SendMan
             button1.Enabled = false;
             button2.Enabled = false;
             textBox1.Enabled = false;
+            comboBox1.Enabled = false;
 
             // フォームのコントロールを無効化
             ControlBox = !ControlBox;
@@ -285,6 +286,7 @@ namespace SendMan
             button1.Enabled = true;
             button2.Enabled = true;
             textBox1.Enabled = true;
+            comboBox1.Enabled = true;
 
             // フォームのコントロールを有効化
             ControlBox = !ControlBox;
